@@ -17,7 +17,6 @@ class BenchmarkRuntime:
     query: str = ""
     result: dict | None = None
     candidates: list[dict] = field(default_factory=list)
-    _candidate_raw: dict[int, AniListResult] = field(default_factory=dict)
     error: str | None = None
     busy: bool = False
     phase: str = "idle"
@@ -51,7 +50,6 @@ class BenchmarkRuntime:
 
     async def _score_result(self, found: AniListResult, started: float) -> None:
         self.candidates = []
-        self._candidate_raw = {}
         self._set_status("scoring", f"Počítám rating: {found.title}")
         signals = from_anilist(found.raw)
         scored = score(signals, self.bundle)
@@ -99,10 +97,8 @@ class BenchmarkRuntime:
         try:
             if anilist_id is not None:
                 self._set_status("selected", f"Vybrán AniList #{anilist_id}")
-                found = self._candidate_raw.get(int(anilist_id))
-                if found is None:
-                    self._set_status("anilist", "Načítám vybraný titul z AniList")
-                    found = await self.client.get_by_id(int(anilist_id))
+                self._set_status("anilist", "Načítám vybraný titul z AniList")
+                found = await self.client.get_by_id(int(anilist_id))
                 await self._score_result(found, started)
                 return
 
@@ -120,9 +116,6 @@ class BenchmarkRuntime:
                 await self._score_result(exact[0], started)
                 return
 
-            self._candidate_raw = {
-                int(item.raw["id"]): item for item in found if item.raw.get("id") is not None
-            }
             self.candidates = [item.summary(query) for item in found]
             self._finish_timing(started)
             count = len(self.candidates)
