@@ -1,9 +1,44 @@
 {
   "title": "Anime Benchmark",
-  "config": {"step": {"user": {"title": "Anime Benchmark", "description": "Nastaví lokální benchmark scorer přes AniList."}}},
+  "config": {
+    "step": {
+      "user": {
+        "title": "Anime Benchmark",
+        "description": "Nastaví lokální benchmark scorer přes AniList."
+      }
+    }
+  },
   "entity": {
-    "text": {"title": {"name": "Název"}},
-    "button": {"calculate": {"name": "Spočítat"}},
-    "sensor": {"rating": {"name": "Rating"}}
+    "text": {
+      "title": {
+        "name": "Název"
+      }
+    },
+    "button": {
+      "calculate": {
+        "name": "Spočítat"
+      }
+    },
+    "sensor": {
+      "rating": {
+        "name": "Rating"
+      }
+    }
+  },
+  "services": {
+    "search": {
+      "name": "Hledat anime",
+      "description": "Vyhledá anime na AniList podle názvu a spočítá benchmark nebo nabídne kandidáty.",
+      "fields": {
+        "query": {
+          "name": "Dotaz",
+          "description": "Název anime nebo jeho část."
+        },
+        "anilist_id": {
+          "name": "AniList ID",
+          "description": "Volitelné ID kandidáta vybraného z výsledků."
+        }
+      }
+    }
   }
 }
