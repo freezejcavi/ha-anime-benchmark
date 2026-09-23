@@ -22,6 +22,12 @@ class AnimeBenchmarkRating(AnimeBenchmarkEntity, SensorEntity):
     @property
     def extra_state_attributes(self):
         result = dict(self.runtime.result or {})
+        result["query"] = self.runtime.query
         result["busy"] = self.runtime.busy
+        result["phase"] = self.runtime.phase
+        result["status_text"] = self.runtime.status
+        result["elapsed_ms"] = self.runtime.elapsed_ms
+        result["activity_log"] = list(self.runtime.activity_log)
+        result["candidates"] = list(self.runtime.candidates)
         result["error"] = self.runtime.error
         return result
