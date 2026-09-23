@@ -1,0 +1,9 @@
+{
+  "title": "Anime Benchmark",
+  "config": {"step": {"user": {"title": "Anime Benchmark", "description": "Set up the local AniList benchmark scorer."}}},
+  "entity": {
+    "text": {"title": {"name": "Title"}},
+    "button": {"calculate": {"name": "Calculate"}},
+    "sensor": {"rating": {"name": "Rating"}}
+  }
+}
