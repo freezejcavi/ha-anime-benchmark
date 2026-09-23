@@ -90,6 +90,11 @@ class AnimeBenchmarkCard extends HTMLElement {
     this._input?.addEventListener("keydown", (event) => {
       if (event.key === "Enter") this.search();
     });
+    this._candidates?.addEventListener("click", (event) => {
+      const button = event.target.closest?.("button.pick");
+      if (!button || button.disabled) return;
+      this.selectCandidate(Number(button.dataset.id));
+    });
     this._initialized = true;
   }
 
@@ -141,11 +146,36 @@ class AnimeBenchmarkCard extends HTMLElement {
 
   _renderCandidates(candidates, busy) {
     if (!this._candidates) return;
-    if (!Array.isArray(candidates) || !candidates.length) {
+
+    const list = Array.isArray(candidates) ? candidates : [];
+    const signature = JSON.stringify(
+      list.map((item) => [
+        item.id,
+        item.title,
+        item.year,
+        item.format,
+        item.cover_url,
+        item.anilist_url,
+      ])
+    );
+
+    // HA pushes the full hass object on every state change anywhere in the system.
+    // Do not rebuild interactive candidate DOM unless the candidate payload itself changed.
+    if (signature === this._candidateSignature) {
+      this._candidates.querySelectorAll("button.pick").forEach((button) => {
+        button.disabled = Boolean(busy);
+      });
+      return;
+    }
+
+    this._candidateSignature = signature;
+
+    if (!list.length) {
       this._candidates.innerHTML = "";
       return;
     }
-    this._candidates.innerHTML = `<div class="candidates">${candidates.map((item) => {
+
+    this._candidates.innerHTML = `<div class="candidates">${list.map((item) => {
       const url = this.safeAniListUrl(item.anilist_url);
       const cover = item.cover_url ? `<img src="${this.esc(item.cover_url)}" alt="">` : "";
       const sub = [item.year, item.format].filter(Boolean).join(" · ");
@@ -159,10 +189,6 @@ class AnimeBenchmarkCard extends HTMLElement {
         <button class="pick" data-id="${this.esc(item.id)}" ${busy ? "disabled" : ""}>Vybrat</button>
       </div>`;
     }).join("")}</div>`;
-
-    this._candidates.querySelectorAll(".pick").forEach((button) => {
-      button.addEventListener("click", () => this.selectCandidate(Number(button.dataset.id)));
-    });
   }
 
   _renderResult(ratingState, a) {
