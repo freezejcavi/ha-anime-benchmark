@@ -1,0 +1,13 @@
+{
+  "domain": "anime_benchmark",
+  "name": "Anime Benchmark",
+  "version": "0.1.0",
+  "documentation": "https://github.com/freezejcavi/ha-anime-benchmark",
+  "issue_tracker": "https://github.com/freezejcavi/ha-anime-benchmark/issues",
+  "codeowners": ["@freezejcavi"],
+  "config_flow": true,
+  "single_config_entry": true,
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "requirements": []
+}
