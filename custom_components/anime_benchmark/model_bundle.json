@@ -1,0 +1,1851 @@
+{
+  "rules": [
+    {
+      "rule_id": "ar_c2ee7212ddb4b0b47919",
+      "component": "discovery_mystery",
+      "fit_score": 0.78,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "(mystery|detective|trial|test|explor|dungeon|secret|occult|tower climbing|forensics|investig|cosmic horror)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_298b6305f672afe96d82",
+      "component": "discovery_mystery",
+      "fit_score": 0.74,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.7,
+      "term_pattern": "^(AI|AI/Machine life|Technology|Ancient power)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_75665274b7d7106f8429",
+      "component": "discovery_mystery",
+      "fit_score": 0.86,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Archaeology|Ancient Egypt|Ancient China|Anthropology|Astrobiology|Science|Speculative science)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_aedeb554e42325110314",
+      "component": "discovery_mystery",
+      "fit_score": 0.78,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Portal fantasy|Isekai|Time travel|Multiverse|Alternate history|Space)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f43c91f9df3b7d64a33b",
+      "component": "discovery_mystery",
+      "fit_score": 0.76,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Quest|Adventurer journey|Survival|Death game|Monster hunting|Hidden identity)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_e20c5032c76c7c2f7961",
+      "component": "discovery_mystery",
+      "fit_score": 0.35,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.5,
+      "term_pattern": "Cosmic horror",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7a5a39511fc1fec91ba5",
+      "component": "discovery_mystery",
+      "fit_score": 0.4,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.6,
+      "term_pattern": "Occult",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_59a201c7f1314b6b2190",
+      "component": "discovery_mystery",
+      "fit_score": 0.92,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "ancient_mystery",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_ea7fb98cdd8f71fea5e4",
+      "component": "discovery_mystery",
+      "fit_score": 0.88,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "conspiracy_mystery",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_479578f88d96c60d2a0f",
+      "component": "discovery_mystery",
+      "fit_score": 0.88,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "hidden_power_reveal",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_ced8b1e5ada2d9baa717",
+      "component": "discovery_mystery",
+      "fit_score": 0.82,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "identity_secret",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_63b070fc68f05efb3db4",
+      "component": "discovery_mystery",
+      "fit_score": 0.88,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "interplanetary_mission",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_feae1ec739fef3bccc39",
+      "component": "discovery_mystery",
+      "fit_score": 0.9,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "mystery_reveal",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_55c704be4a2ef76d5a32",
+      "component": "discovery_mystery",
+      "fit_score": 0.87,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "tech_discovery",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_0341b5a891b602a1e498",
+      "component": "genre_setting_fit",
+      "fit_score": 0.95,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Action",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_3c26178a43ee3cfc6b6a",
+      "component": "genre_setting_fit",
+      "fit_score": 0.95,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Adventure",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7fd8fde3f349d435e30b",
+      "component": "genre_setting_fit",
+      "fit_score": 0.35,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Biography",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_fb45ef7591223af55601",
+      "component": "genre_setting_fit",
+      "fit_score": 0.6,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Comedy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_d87cb1b9f31011a11e55",
+      "component": "genre_setting_fit",
+      "fit_score": 0.55,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Crime",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_ce2db9f736b14f6c3509",
+      "component": "genre_setting_fit",
+      "fit_score": 0.9,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Dark fantasy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_3b4f2f293ff67ebf0753",
+      "component": "genre_setting_fit",
+      "fit_score": 0.25,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Documentary",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7f335bb3ce82126f29b3",
+      "component": "genre_setting_fit",
+      "fit_score": 0.7,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Drama",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_d279b20381712b49f85a",
+      "component": "genre_setting_fit",
+      "fit_score": 0.35,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Educational",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_4058587565d64620adce",
+      "component": "genre_setting_fit",
+      "fit_score": 0.6,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Family",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_47a0dfb3b9ec797c41fb",
+      "component": "genre_setting_fit",
+      "fit_score": 1,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Fantasy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_97627152f8b105cda69c",
+      "component": "genre_setting_fit",
+      "fit_score": 0.15,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Game Show",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_66430cc7eac4024a3289",
+      "component": "genre_setting_fit",
+      "fit_score": 0.45,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Historical",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f2a6a8bcbd45cae1045b",
+      "component": "genre_setting_fit",
+      "fit_score": 0.4,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "History",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_56f0ed6ca83a49f06178",
+      "component": "genre_setting_fit",
+      "fit_score": 0.55,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Horror",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_e2c1a74ad90c94275598",
+      "component": "genre_setting_fit",
+      "fit_score": 0.35,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Music",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_8a52158d773ea02a9336",
+      "component": "genre_setting_fit",
+      "fit_score": 0.7,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Mystery",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_2a8ed01daa75fa6718d8",
+      "component": "genre_setting_fit",
+      "fit_score": 0.35,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Nature",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_a04521ffc5781cc731fd",
+      "component": "genre_setting_fit",
+      "fit_score": 0.1,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Reality",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_ab274d93344d3c89fda4",
+      "component": "genre_setting_fit",
+      "fit_score": 0.35,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Romance",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_85d6666bb6497890971f",
+      "component": "genre_setting_fit",
+      "fit_score": 1,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Sci-Fi",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_97f7de01791c1c0dc7ec",
+      "component": "genre_setting_fit",
+      "fit_score": 0.6,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Science",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_b054169ea50f47969293",
+      "component": "genre_setting_fit",
+      "fit_score": 0.3,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Slice of life",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_1260641a48b510cd0e91",
+      "component": "genre_setting_fit",
+      "fit_score": 1,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Superhero",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_5bca73ebf89f80d3d47f",
+      "component": "genre_setting_fit",
+      "fit_score": 0.8,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Supernatural",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_5169f91918f08c1cc3b6",
+      "component": "genre_setting_fit",
+      "fit_score": 0.75,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Technology",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_0c11de20a561267a413f",
+      "component": "genre_setting_fit",
+      "fit_score": 0.7,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Thriller",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_1e8f50e0546ddc5c280c",
+      "component": "genre_setting_fit",
+      "fit_score": 0.8,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "War",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_5167d91211ac930a5434",
+      "component": "genre_setting_fit",
+      "fit_score": 0.3,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.4,
+      "term_pattern": "Kids",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_3bf585194c4b435e60e9",
+      "component": "narrative_continuity",
+      "fit_score": 0.82,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "(life-spanning|legacy|family/relationships|revenge|betrayal|politic|diplom|intergalactic war|war)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_2b04d550dec9abdc1cf5",
+      "component": "narrative_continuity",
+      "fit_score": 0.25,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "(relationship misunderstandings|slow-burn romance|love polygon)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7486d8f69168444819ae",
+      "component": "narrative_continuity",
+      "fit_score": 0.72,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Character trauma|Family conflict|Family|Relationships|Friendship|Romance)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_698d6f704963e75273dc",
+      "component": "narrative_continuity",
+      "fit_score": 0.84,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Franchise prequel|Multiverse|Time travel|Regression/Time rewind|Alternate history)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_2ed3a12819284370023d",
+      "component": "narrative_continuity",
+      "fit_score": 0.82,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.9,
+      "term_pattern": "^(Marvel|DC|Arrowverse|Superhero|Superheroes)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_1e6137072936b23fc684",
+      "component": "narrative_continuity",
+      "fit_score": 0.78,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Quest|Adventurer journey|Long-lived protagonist|Apocalypse|Survival)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_6c4e11a6584961980bfa",
+      "component": "narrative_continuity",
+      "fit_score": 0.9,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "legacy_continuity",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_8f4023c8dcb64b984b1b",
+      "component": "narrative_continuity",
+      "fit_score": 0.94,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "long_arc_continuity",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_2cb68aac1e6ed0758813",
+      "component": "narrative_continuity",
+      "fit_score": 0.9,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "political_conquest",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_ff695c45ce5ad741b826",
+      "component": "narrative_continuity",
+      "fit_score": 0.86,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "prophecy_arc",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_787e7b0ec3b2b88c34ea",
+      "component": "narrative_continuity",
+      "fit_score": 0.82,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "resistance_rebellion",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_962bcc5bc3ae48f3f540",
+      "component": "narrative_continuity",
+      "fit_score": 0.82,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "survival_arc",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_92269e32143b1c14f5ae",
+      "component": "narrative_continuity",
+      "fit_score": 0.9,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "war_arc",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_962e4aaa28eb625ea8e6",
+      "component": "progression_growth",
+      "fit_score": 1,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1.2,
+      "term_pattern": "(power system|power progression|solo progression|life-spanning progression)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_180bd59a02f39324d10b",
+      "component": "progression_growth",
+      "fit_score": 0.96,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "(progress|level|skill acquisition|evolution|weak-to-overpowered|training|reincarnation|transmigration|coming-of-age|growth)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_0918c68aa6c9b4c0920c",
+      "component": "progression_growth",
+      "fit_score": 0.8,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Adventurer life|Adventurer journey|Quest|Party-building|Monster hunting)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_baf1c61d1f88164acefc",
+      "component": "progression_growth",
+      "fit_score": 0.94,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1.1,
+      "term_pattern": "^(Game-system|Underdog-to-overpowered|Underestimated/Overpowered|Overpowered prodigy|Overpowered protagonist)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_b4e9b4d68429331cc8e7",
+      "component": "progression_growth",
+      "fit_score": 0.78,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.9,
+      "term_pattern": "^(Kicked-from-party|Healer protagonist|Support-class protagonist|Appraisal/Scouting skill|Crafting/Profession|Alchemy/Crafting)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7de901e41333fbdbef4c",
+      "component": "progression_growth",
+      "fit_score": 0.88,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Magic academy|Academy|Battle shonen|Shonen|Martial arts|Tournament)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_882597e930087320c55f",
+      "component": "progression_growth",
+      "fit_score": 0.91,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Regression/Time rewind|Reincarnation|Transmigration|Long-lived protagonist)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_8539bbdb94e044154570",
+      "component": "progression_growth",
+      "fit_score": 0.88,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "coming_of_age_growth",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_6bcbd1bce5c1b375e10a",
+      "component": "progression_growth",
+      "fit_score": 0.88,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "mentor_growth",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_c6c6fa4029e1504cf741",
+      "component": "progression_growth",
+      "fit_score": 0.93,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "power_mastery",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_fede93c3aff47ed35dbd",
+      "component": "progression_growth",
+      "fit_score": 0.94,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "skill_control",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_de4e8346f797bda83005",
+      "component": "progression_growth",
+      "fit_score": 0.86,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "tech_progression",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_9047313e5c8524889ed4",
+      "component": "progression_growth",
+      "fit_score": 0.91,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "training_arc",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_2f1649268da3daadd126",
+      "component": "protagonist_agency",
+      "fit_score": 0.9,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "(clever protagonist|competent|strateg|leadership|antihero|hunter|assassin|commander|ruler)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_68130ba598ae44906155",
+      "component": "protagonist_agency",
+      "fit_score": 0.72,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "(monster protagonist|android protagonist)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_b36d65abacb1b72ea2f8",
+      "component": "protagonist_agency",
+      "fit_score": 0.72,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.9,
+      "term_pattern": "^(Appraisal/Scouting skill|Healer protagonist|Support-class protagonist|Crafting/Profession|Alchemy/Crafting)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_a2d6ffc882ef5ccc68b2",
+      "component": "protagonist_agency",
+      "fit_score": 0.72,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.7,
+      "term_pattern": "^(Hidden identity|Alien protagonist|Nonhuman protagonist|Long-lived protagonist)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_810f3ac67b091e472435",
+      "component": "protagonist_agency",
+      "fit_score": 0.93,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Overpowered protagonist|Overpowered prodigy|Underestimated/Overpowered|Underdog-to-overpowered)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_443b122afd73108c5520",
+      "component": "protagonist_agency",
+      "fit_score": 0.88,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.9,
+      "term_pattern": "^(Superhero|Superheroes|Young heroes|Martial arts|Monster hunting)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7ee2a128617117d74932",
+      "component": "protagonist_agency",
+      "fit_score": 0.45,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "support/utility protagonist",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_b3da13065c9332d91e78",
+      "component": "protagonist_agency",
+      "fit_score": 0.93,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "heroic_rescue_drive",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7a59d608fafb18d8239d",
+      "component": "protagonist_agency",
+      "fit_score": 0.88,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "moral_antihero_conflict",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_69ecbd0de44db6cac531",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.9,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "(found family|team/squad|friendship/rivalry|crew|mentor|party adventure)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_3963e1420d608d3cba4a",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.77,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Adventurer life|Adventurer journey|Quest|Healer protagonist|Support-class protagonist)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_a68405baca302b9a02d4",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.8,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.9,
+      "term_pattern": "^(Family|Relationships|Family conflict)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_a2e6e9d9ad5661619f52",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.89,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Friendship|Party-building|Ensemble|Young heroes|Buddy comedy)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_71dc77c227185540915e",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.78,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Superhero|Superheroes|Heroes vs villains|Marvel|DC|Arrowverse)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_6375d1790b58a6fb532d",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.68,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "ensemble cast",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_fc2b192666f463aa47a1",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.78,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "family/relationships",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f00b3692eeaa9eddccec",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.8,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "faction_hierarchy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_eeb7103b35b024f2da84",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.85,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "mentor_growth",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f25d86cf405547b2edcc",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.92,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "mission_team",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_61fb0fda3a7a75d721dc",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.82,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "resistance_rebellion",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_dd39b9a983f9f02eee69",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.95,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "surrogate_family",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_34aa8f384f382e33f3f6",
+      "component": "team_relationship_dynamics",
+      "fit_score": 0.92,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "team_bond",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_18b87f7e8cff48aae7c0",
+      "component": "tone_story_energy",
+      "fit_score": 0.98,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1.2,
+      "term_pattern": "Action",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_3f521e5d791bfecccdb3",
+      "component": "tone_story_energy",
+      "fit_score": 0.9,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Adventure",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7dfd9b351e15a609ebbd",
+      "component": "tone_story_energy",
+      "fit_score": 0.62,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "Comedy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7ca068cf0f5aaf33c8e9",
+      "component": "tone_story_energy",
+      "fit_score": 0.65,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "Drama",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_b9ad51b04e3085fc7451",
+      "component": "tone_story_energy",
+      "fit_score": 0.82,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "Fantasy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_591778d6e196b4a58905",
+      "component": "tone_story_energy",
+      "fit_score": 0.62,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "Mystery",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_e07e34d018f1a43d0dde",
+      "component": "tone_story_energy",
+      "fit_score": 0.3,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Romance",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_bb0148048e8a051fa765",
+      "component": "tone_story_energy",
+      "fit_score": 0.9,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Sci-Fi",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_0903fb958f07ef6c129a",
+      "component": "tone_story_energy",
+      "fit_score": 0.25,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Slice of life",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_876355a5f263576496e8",
+      "component": "tone_story_energy",
+      "fit_score": 0.95,
+      "namespace": "project.genre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Superhero",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_dd2374d34c7bbc19705f",
+      "component": "tone_story_energy",
+      "fit_score": 0.95,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "(boss hunting|magic warfare|urban dungeon|dark adventure|intergalactic war)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_680497f660f1a615308c",
+      "component": "tone_story_energy",
+      "fit_score": 0.52,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "(existential/philosophical|court intrigue)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_4854d663fa4c8037f8a9",
+      "component": "tone_story_energy",
+      "fit_score": 0.32,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Automotive|Car restoration|Trading/Flipping|Workshop|Competition|Game Show)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_fd6c6c2cdeccc9b9bbda",
+      "component": "tone_story_energy",
+      "fit_score": 0.93,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Battle shonen|Shonen|Martial arts|Tournament|Superhero|Superheroes|Superpowers|Heroes vs villains)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_ee3c44ee3a51611e17ed",
+      "component": "tone_story_energy",
+      "fit_score": 0.3,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Concert film|Live performance|Music|Musical|Pop|Rock music|Stand-up)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_d508a16daab55899e489",
+      "component": "tone_story_energy",
+      "fit_score": 0.48,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.9,
+      "term_pattern": "^(Cozy fantasy|Cozy adventure)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_48681fb33a6e09ed3457",
+      "component": "tone_story_energy",
+      "fit_score": 0.88,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.9,
+      "term_pattern": "^(Death game|Survival|Monster hunting|Kaiju|Heist|Quest|Apocalypse)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_6890b54978e1e00bd9ed",
+      "component": "tone_story_energy",
+      "fit_score": 0.82,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Mecha|Robots|Space|Mutants|Vampires|Dragons)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_635133d14e646950720b",
+      "component": "tone_story_energy",
+      "fit_score": 0.52,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Psychological|Social commentary)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_19e75faf0bce3b3d511a",
+      "component": "tone_story_energy",
+      "fit_score": 0.35,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.4,
+      "term_pattern": "Cosmic horror",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_5dc53e56c3aa54f53b6a",
+      "component": "tone_story_energy",
+      "fit_score": 0.42,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "Crafting/Lockpicking",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_d4c946463f39bd12939f",
+      "component": "tone_story_energy",
+      "fit_score": 0.35,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.5,
+      "term_pattern": "Existential/Philosophical",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_65d6831fe4c6e6e4b10d",
+      "component": "tone_story_energy",
+      "fit_score": 0.28,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.4,
+      "term_pattern": "Kids",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_a26b3f8bf172b9826e19",
+      "component": "tone_story_energy",
+      "fit_score": 0.4,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.4,
+      "term_pattern": "Occult",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_21c3aa793a52c7a8bcca",
+      "component": "visual_style",
+      "fit_score": 0.72,
+      "namespace": "content.animation_origin",
+      "match_mode": "exact",
+      "rule_weight": 0.25,
+      "term_pattern": "anime",
+      "evidence_strength": 0.25
+    },
+    {
+      "rule_id": "ar_212e149dddc7556f1531",
+      "component": "visual_style",
+      "fit_score": 0.58,
+      "namespace": "content.animation_origin",
+      "match_mode": "exact",
+      "rule_weight": 0.25,
+      "term_pattern": "donghua",
+      "evidence_strength": 0.25
+    },
+    {
+      "rule_id": "ar_95998cf364c2723ceb17",
+      "component": "visual_style",
+      "fit_score": 0.78,
+      "namespace": "content.animation_origin",
+      "match_mode": "exact",
+      "rule_weight": 0.25,
+      "term_pattern": "western_animation",
+      "evidence_strength": 0.25
+    },
+    {
+      "rule_id": "ar_3cb1e13f22c05ee54f97",
+      "component": "visual_style",
+      "fit_score": 0.72,
+      "namespace": "content.medium",
+      "match_mode": "exact",
+      "rule_weight": 0.15,
+      "term_pattern": "animation",
+      "evidence_strength": 0.15
+    },
+    {
+      "rule_id": "ar_292481b88c76eb3ea248",
+      "component": "visual_style",
+      "fit_score": 0.66,
+      "namespace": "content.medium",
+      "match_mode": "exact",
+      "rule_weight": 0.15,
+      "term_pattern": "live_action",
+      "evidence_strength": 0.15
+    },
+    {
+      "rule_id": "ar_1cae1cd6ef23cdde3ed2",
+      "component": "visual_style",
+      "fit_score": 0.68,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 0.55,
+      "term_pattern": "Adult animation",
+      "evidence_strength": 0.5
+    },
+    {
+      "rule_id": "ar_2c65cdb672a09a2d44e5",
+      "component": "visual_style",
+      "fit_score": 0.58,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "CGI animation",
+      "evidence_strength": 0.65
+    },
+    {
+      "rule_id": "ar_41526c741981bf9e69c4",
+      "component": "visual_style",
+      "fit_score": 0.56,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "CGI remake",
+      "evidence_strength": 0.65
+    },
+    {
+      "rule_id": "ar_8a1cca1945f840ade3f9",
+      "component": "visual_style",
+      "fit_score": 0.58,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "Donghua/Chinese animation",
+      "evidence_strength": 0.7
+    },
+    {
+      "rule_id": "ar_7f451e2834b54775845d",
+      "component": "visual_style",
+      "fit_score": 0.42,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 0.6,
+      "term_pattern": "Educational animation",
+      "evidence_strength": 0.55
+    },
+    {
+      "rule_id": "ar_cbb9ef01020640b2eb99",
+      "component": "visual_style",
+      "fit_score": 0.8,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "Western animation",
+      "evidence_strength": 0.7
+    },
+    {
+      "rule_id": "ar_bb8d1785c19aee1e0ae5",
+      "component": "visual_style",
+      "fit_score": 0.9,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "bold_saturated_heroic_fantasy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_1174e8e45ff4152a1d13",
+      "component": "visual_style",
+      "fit_score": 0.9,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "bold_sci_fi_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_5a977c2cbfcefcdbad6d",
+      "component": "visual_style",
+      "fit_score": 0.82,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "bright_colorful_fantasy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7e2c1716dd5380aa76d2",
+      "component": "visual_style",
+      "fit_score": 0.82,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "bright_high_contrast_fantasy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_5460f7e57df925666514",
+      "component": "visual_style",
+      "fit_score": 0.38,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "bright_pastel_palette",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_b2fcf15c0ca9008ef46d",
+      "component": "visual_style",
+      "fit_score": 0.48,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "character_focused_composition",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_68b3da0cff90b57bcc55",
+      "component": "visual_style",
+      "fit_score": 0.45,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "chibi_comedic_interludes",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_500670a5355facd60967",
+      "component": "visual_style",
+      "fit_score": 0.91,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "cinematic_action_staging",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_26ea55b081cd7d18cffc",
+      "component": "visual_style",
+      "fit_score": 0.9,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "cinematic_scale",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_0e0a9051f64056e48d1b",
+      "component": "visual_style",
+      "fit_score": 0.8,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "clean_character_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_be1dc077e49226515f91",
+      "component": "visual_style",
+      "fit_score": 0.9,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "clean_graphic_readability",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_ac0e5b3aaea459bebcef",
+      "component": "visual_style",
+      "fit_score": 0.82,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "colorful_cel_shaded",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_610f3ccd3e9b2bdb73a1",
+      "component": "visual_style",
+      "fit_score": 0.55,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "conventional_fantasy_anime",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_71c5b9b0b4743824e36d",
+      "component": "visual_style",
+      "fit_score": 0.45,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "dialogue_character_framing",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f7e51e17bf5c254e70a9",
+      "component": "visual_style",
+      "fit_score": 0.94,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "distinctive_world_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_1678628ec98f22af1cb3",
+      "component": "visual_style",
+      "fit_score": 0.95,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1.1,
+      "term_pattern": "dynamic_action_staging",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f5502443ef9398930935",
+      "component": "visual_style",
+      "fit_score": 0.72,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "european_anime_stylization",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_da25756a74e4a8ec4773",
+      "component": "visual_style",
+      "fit_score": 0.9,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "expressive_magic_fx",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_9e7316bc5b13c1fbc990",
+      "component": "visual_style",
+      "fit_score": 0.94,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "fluid_character_action",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_9b3d38c6342e4fc117bf",
+      "component": "visual_style",
+      "fit_score": 0.7,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "gothic_steampunk_density",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_47328ca4c6b268dece3e",
+      "component": "visual_style",
+      "fit_score": 0.78,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "graphic_character_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_0adb621471bc900b74d0",
+      "component": "visual_style",
+      "fit_score": 0.93,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "high_contrast_magic_fx",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_ccbae899bf49de77190b",
+      "component": "visual_style",
+      "fit_score": 0.97,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1.1,
+      "term_pattern": "high_contrast_power_fx",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_0b9dd6b75949ebe01b1f",
+      "component": "visual_style",
+      "fit_score": 0.68,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "lush_color_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_157f79f84c083d6be35c",
+      "component": "visual_style",
+      "fit_score": 0.7,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "minimalist_post_apocalyptic",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_fb1b5649547e1d53dc2a",
+      "component": "visual_style",
+      "fit_score": 0.85,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "monstrous_character_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_cc629f5a26f0c2fa4f77",
+      "component": "visual_style",
+      "fit_score": 0.55,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "muted_melancholic_palette",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_fd1e0a75ebce261333f7",
+      "component": "visual_style",
+      "fit_score": 0.82,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "naturalistic_lighting",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_7e1d8a8b5125a35aef83",
+      "component": "visual_style",
+      "fit_score": 0.84,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "ornate_armor_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_97095359666df2528bd0",
+      "component": "visual_style",
+      "fit_score": 0.88,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "ornate_dark_fantasy_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_be3111e9596e4f302c2d",
+      "component": "visual_style",
+      "fit_score": 0.62,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "ornate_historical_detail",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_b2b63ca8907ff70dc405",
+      "component": "visual_style",
+      "fit_score": 0.78,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "ornate_world_design",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_b70c709a4b1e84b04faf",
+      "component": "visual_style",
+      "fit_score": 0.9,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "painterly_fantasy_backgrounds",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_173f9894a0edf2bcb177",
+      "component": "visual_style",
+      "fit_score": 0.3,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "romcom_gloss",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_8676a23981928f9c5a58",
+      "component": "visual_style",
+      "fit_score": 0.55,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.6,
+      "term_pattern": "soft_color_palette",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_cd3bc5cd54a29f958d2d",
+      "component": "visual_style",
+      "fit_score": 0.72,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.7,
+      "term_pattern": "stylish_urban_noir",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_a5e2b8968c955973f738",
+      "component": "visual_style",
+      "fit_score": 0.78,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "stylized_3d_cg_animation",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_2dd4ef00fee2e905258d",
+      "component": "visual_style",
+      "fit_score": 0.84,
+      "namespace": "project.visual_style",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "stylized_linework",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f4e0ce3cc629cba4f05b",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.72,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "(court intrigue|historical palace|urban dungeon|dungeon)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_e40a018c5c7596df06ad",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.9,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "(worldbuild|kingdom|empire|politic|diplom|civilization|space opera|guild|myth|lore|faction|intergalactic war|alien civilization|steampunk|medieval fantasy|magic warfare|secret societ|post-apocalyptic)",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_e8689acd732d324344a0",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.72,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.8,
+      "term_pattern": "^(Aristocracy|Academy|School|Adventurer life|Party-building)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_bb11da555215121df4fe",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.82,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 0.9,
+      "term_pattern": "^(Dragons|Vampires|Ancient power|Apocalypse|Multiverse|Alternate history)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_70dc274006afb222effc",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.88,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Isekai|Portal fantasy|Summoned-to-another-world|Accidental summoning)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f280e9953f1f6a49ef9a",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.84,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Magic|Magic academy|Sword and sorcery|Urban fantasy|Dark fantasy|Supernatural)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_e0a8bef3f187f8de2a17",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.84,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Mecha|Robots|AI|AI/Machine life|Space|Kaiju|Alien protagonist)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_a158c05b9092c0e23f48",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.88,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Superhero|Superheroes|Marvel|DC|Arrowverse|Mutants|Superpowers)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_3a871ecd624f273f71e2",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.87,
+      "namespace": "project.subgenre",
+      "match_mode": "regex",
+      "rule_weight": 1,
+      "term_pattern": "^(Tower climbing|Trials/Tests|Game-system|Summoner/Shadow army|Demons/Angels|Mythology|Power system)$",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_37fcb837149d5710a061",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.45,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.6,
+      "term_pattern": "Secret societies",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_dc8cadb62b071a9b0644",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.58,
+      "namespace": "project.subgenre",
+      "match_mode": "exact",
+      "rule_weight": 1.2,
+      "term_pattern": "Victorian/Steampunk",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_5f1b56a9ea4c38dc4d2e",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.88,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "faction_hierarchy",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_aaae73187243db7d9146",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.88,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "interplanetary_mission",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_58ebe04a85a6dc78d7cb",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.9,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 1,
+      "term_pattern": "political_conquest",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_f9d273a869079de07fd4",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.84,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.8,
+      "term_pattern": "prophecy_arc",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_a67e0279dc195040655b",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.85,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "resistance_rebellion",
+      "evidence_strength": 1
+    },
+    {
+      "rule_id": "ar_aa677d27085e850549f6",
+      "component": "worldbuilding_lore",
+      "fit_score": 0.86,
+      "namespace": "project.trait",
+      "match_mode": "exact",
+      "rule_weight": 0.9,
+      "term_pattern": "war_arc",
+      "evidence_strength": 1
+    }
+  ],
+  "display": {
+    "slope": 7,
+    "anchor": 0.817163,
+    "minimum": 1,
+    "round_digits": 2
+  },
+  "rule_count": 181,
+  "bundle_kind": "production-export",
+  "generated_at": "2026-09-23T18:08:50.159261+00:00",
+  "model_version": "profile-affinity-v1.4",
+  "rules_complete": true,
+  "schema_version": 1,
+  "component_priors": {
+    "visual_style": 0.66,
+    "discovery_mystery": 0.78,
+    "genre_setting_fit": 0.9917,
+    "tone_story_energy": 0.9668,
+    "progression_growth": 0.9518,
+    "protagonist_agency": 0.9,
+    "worldbuilding_lore": 0.88,
+    "narrative_continuity": 0.82,
+    "team_relationship_dynamics": 0.9
+  },
+  "component_weights": {
+    "visual_style": 0.12,
+    "discovery_mystery": 0.08,
+    "genre_setting_fit": 0.13,
+    "tone_story_energy": 0.07,
+    "progression_growth": 0.15,
+    "protagonist_agency": 0.12,
+    "worldbuilding_lore": 0.15,
+    "narrative_continuity": 0.1,
+    "team_relationship_dynamics": 0.08
+  },
+  "baseline_median_raw_fit": 0.873468,
+  "taxonomy_mapping_version": "anilist-map-v0.2",
+  "franchise_pre_rating_median": 1.012072
+}
