@@ -4,11 +4,12 @@ Samostatná Home Assistant custom integration pro rychlé ohodnocení anime podl
 
 ## Cíl V1
 
-1. Do dashboard karty zadat název anime.
-2. Vyhledat titul přes AniList GraphQL API.
-3. Převést AniList genres/tags do lokálního taxonomy vstupu.
-4. Spočítat benchmark rating lokálně podle verzovaného `model_bundle.json`.
-5. Zobrazit nalezený titul, cover, rating, confidence a odkaz na AniList v novém okně.
+1. Do dashboard karty zadat celý nebo částečný název anime.
+2. Vyhledat až 5 kandidátů přes AniList GraphQL API.
+3. Přesnou shodu rovnou ohodnotit; u nejasného názvu nechat uživatele vybrat správný titul.
+4. Převést AniList genres/tags do lokálního taxonomy vstupu.
+5. Spočítat benchmark rating lokálně podle verzovaného `model_bundle.json`.
+6. Zobrazit cover, rating, confidence, AniList odkaz, stav operace a krátký activity log.
 
 Runtime cesta **nevolá Supabase**. Supabase je pouze source-of-truth pro export model bundle.
 
@@ -38,7 +39,6 @@ Dashboard karta:
 ```yaml
 type: custom:anime-benchmark-card
 title_entity: text.anime_benchmark_title
-button_entity: button.anime_benchmark_calculate
 rating_entity: sensor.anime_benchmark_rating
 ```
 
@@ -59,3 +59,13 @@ Pak musí projít `tools/validate_bundle.py` a CI.
 ## Stav
 
 V1 scaffold obsahuje HA backend, vlastní dashboard card, AniList resolver, lokální scorer, model export kontrakt a CI validaci. Další gate před označením verze jako stabilní je benchmark validation batch proti titulům již známým v trackeru.
+
+
+## Search UX od 0.2.0
+
+- Přesný název: titul se rovnou vyhodnotí.
+- Částečný/nejasný název: karta zobrazí až 5 AniList kandidátů bez ratingu.
+- Po kliknutí na **Vybrat** se spočítá rating zvoleného titulu.
+- Status bar ukazuje aktuální fázi a dobu zpracování.
+- Rozbalovací **Aktivita** ukazuje poslední kroky operace.
+- Karta volá přímo `anime_benchmark.search`; nepoužívá závod mezi `text.set_value` a `button.press`.
