@@ -1,0 +1,12 @@
+search:
+  fields:
+    query:
+      required: true
+      selector:
+        text:
+    anilist_id:
+      required: false
+      selector:
+        number:
+          min: 1
+          mode: box
