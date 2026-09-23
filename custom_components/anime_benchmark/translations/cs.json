@@ -1,0 +1,9 @@
+{
+  "title": "Anime Benchmark",
+  "config": {"step": {"user": {"title": "Anime Benchmark", "description": "Nastaví lokální benchmark scorer přes AniList."}}},
+  "entity": {
+    "text": {"title": {"name": "Název"}},
+    "button": {"calculate": {"name": "Spočítat"}},
+    "sensor": {"rating": {"name": "Rating"}}
+  }
+}
