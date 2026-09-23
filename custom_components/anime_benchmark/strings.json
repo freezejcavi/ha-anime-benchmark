@@ -1,9 +1,44 @@
 {
   "title": "Anime Benchmark",
-  "config": {"step": {"user": {"title": "Anime Benchmark", "description": "Set up the local AniList benchmark scorer."}}},
+  "config": {
+    "step": {
+      "user": {
+        "title": "Anime Benchmark",
+        "description": "Set up the local AniList benchmark scorer."
+      }
+    }
+  },
   "entity": {
-    "text": {"title": {"name": "Title"}},
-    "button": {"calculate": {"name": "Calculate"}},
-    "sensor": {"rating": {"name": "Rating"}}
+    "text": {
+      "title": {
+        "name": "Title"
+      }
+    },
+    "button": {
+      "calculate": {
+        "name": "Calculate"
+      }
+    },
+    "sensor": {
+      "rating": {
+        "name": "Rating"
+      }
+    }
+  },
+  "services": {
+    "search": {
+      "name": "Search anime",
+      "description": "Search AniList by title and calculate or select a benchmark candidate.",
+      "fields": {
+        "query": {
+          "name": "Query",
+          "description": "Anime title or partial title."
+        },
+        "anilist_id": {
+          "name": "AniList ID",
+          "description": "Optional candidate ID selected from search results."
+        }
+      }
+    }
   }
 }
