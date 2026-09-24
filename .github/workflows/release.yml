@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "custom_components/anime_benchmark/manifest.json"
+      - ".release-version"
       - ".github/workflows/release.yml"
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Read and validate version
+      - name: Read and validate release version
         id: version
         shell: bash
         run: |
@@ -39,12 +39,19 @@ jobs:
           import re
           from pathlib import Path
 
+          marker = Path(".release-version").read_text(encoding="utf-8").strip()
           manifest = json.loads(
               Path("custom_components/anime_benchmark/manifest.json").read_text(encoding="utf-8")
           )
-          version = manifest["version"]
+          version = str(manifest["version"])
+
           if not re.fullmatch(r"\d+\.\d+\.\d+", version):
               raise SystemExit(f"Invalid semantic version: {version}")
+          if marker != version:
+              raise SystemExit(
+                  f"Release marker {marker!r} does not match manifest version {version!r}"
+              )
+
           print(version)
           PY
           )"
