@@ -1,14 +1,14 @@
-const ANIME_BENCHMARK_UI_VERSION = "0.3.3";
+const ANIME_BENCHMARK_UI_VERSION = "0.4.0";
 
 class AnimeBenchmarkCard extends HTMLElement {
   setConfig(config) {
     this.config = {
       title_entity: "text.anime_benchmark_title",
       rating_entity: "sensor.anime_benchmark_rating",
-      height: 410,
+      height: 395,
       ...config,
     };
-    const height = Math.max(320, Math.min(700, Number(this.config.height) || 410));
+    const height = Math.max(320, Math.min(700, Number(this.config.height) || 395));
     this.style.setProperty("--anime-benchmark-card-height", `${height}px`);
     if (!this.shadowRoot) this.attachShadow({ mode: "open" });
     this._ensureStructure();
@@ -55,7 +55,7 @@ class AnimeBenchmarkCard extends HTMLElement {
       <style>
         :host{display:block}
         ha-card{
-          height:var(--anime-benchmark-card-height,410px);
+          height:var(--anime-benchmark-card-height,395px);
           border-radius:var(--ha-card-border-radius,12px);
           overflow:hidden;
         }
@@ -149,6 +149,25 @@ class AnimeBenchmarkCard extends HTMLElement {
         .candidate .info{min-width:0;flex:1}
         .candidate .sub{font-size:12px;color:var(--secondary-text-color);margin-top:2px}
         .candidate .pick{height:32px;padding:0 11px;flex:0 0 auto}
+        .later-action{
+          display:inline-flex;align-items:center;justify-content:center;
+          margin-top:8px;padding:7px 11px;border:0;border-radius:9px;
+          background:var(--primary-color);color:var(--text-primary-color,#fff);
+          font-weight:700;cursor:pointer
+        }
+        .later-action:disabled{opacity:.5;cursor:default}
+        .queue-state{
+          display:inline-flex;align-items:center;
+          margin-top:8px;padding:5px 8px;border-radius:8px;
+          font-size:12px;font-weight:700
+        }
+        .queue-state.queued{
+          background:color-mix(in srgb,var(--success-color,#4caf50) 18%,transparent);
+          color:var(--success-color,#66bb6a)
+        }
+        .queue-hint{
+          margin-top:6px;font-size:11px;color:var(--secondary-text-color)
+        }
         .catalog-badge{
           display:inline-flex;align-items:center;
           margin-top:5px;padding:2px 7px;border-radius:999px;
@@ -222,6 +241,11 @@ class AnimeBenchmarkCard extends HTMLElement {
       const button = event.target.closest?.("button.pick");
       if (!button || button.disabled) return;
       this.selectCandidate(Number(button.dataset.id));
+    });
+    this._output?.addEventListener("click", (event) => {
+      const button = event.target.closest?.("button.later-action");
+      if (!button || button.disabled) return;
+      this.addLater(Number(button.dataset.id));
     });
     this._initialized = true;
   }
@@ -354,6 +378,17 @@ class AnimeBenchmarkCard extends HTMLElement {
       : "";
     const yearFormat = [a.year, a.format].filter(Boolean).join(" · ");
     const catalog = this.catalogBadge(a.catalog);
+    const isNew = a.catalog && !a.catalog.tracked;
+    let laterAction = "";
+    if (isNew) {
+      if (a.queue_status === "submitted") {
+        laterAction = `<div class="queue-state queued">✓ Odesláno importeru</div>`;
+      } else if (a.queue_configured) {
+        laterAction = `<button class="later-action" data-id="${this.esc(a.anilist_id)}">＋ Later</button>`;
+      } else {
+        laterAction = `<button class="later-action" disabled>＋ Later</button><div class="queue-hint">Nejdřív nastav GitHub token v Configure integrace.</div>`;
+      }
+    }
 
     this._output.innerHTML = `
       <div class="result">
@@ -366,6 +401,7 @@ class AnimeBenchmarkCard extends HTMLElement {
           <div class="meta">Confidence: ${this.esc(a.confidence || "—")} · ${this.esc(a.model_version || "")}</div>
           <div class="genres">${this.esc((a.genres || []).join(" · "))}</div>
           ${link}
+          ${laterAction}
         </div>
       </div>`;
   }
@@ -399,6 +435,23 @@ class AnimeBenchmarkCard extends HTMLElement {
     const query = ratingState?.attributes?.query || this._input?.value.trim();
     if (!query || !anilistId) return;
     await this._callSearch({ query, anilist_id: anilistId });
+  }
+
+  async addLater(anilistId) {
+    if (!this._hass || !anilistId) return;
+    this._localBusy = true;
+    this._setLocalStatus("Odesílám do tracker importeru…", "busy");
+    this._updateFromHass();
+    try {
+      await this._hass.callService("anime_benchmark", "add_later", {
+        anilist_id: anilistId,
+      });
+    } catch (error) {
+      this._setLocalStatus(`Chyba importu: ${error?.message || error}`, "error");
+    } finally {
+      this._localBusy = false;
+      this._updateFromHass();
+    }
   }
 
   getCardSize() { return 5; }
