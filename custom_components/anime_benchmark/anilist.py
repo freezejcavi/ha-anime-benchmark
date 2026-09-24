@@ -78,6 +78,7 @@ class AniListResult:
         return {
             "id": self.raw.get("id"),
             "title": self.title,
+            "titles": [value for value in (titles.get("english"), titles.get("romaji"), titles.get("native")) if value],
             "romaji": titles.get("romaji"),
             "english": titles.get("english"),
             "year": (self.raw.get("startDate") or {}).get("year"),
