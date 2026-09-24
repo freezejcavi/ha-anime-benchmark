@@ -39,6 +39,36 @@
           "description": "Volitelné ID kandidáta vybraného z výsledků."
         }
       }
+    },
+    "add_later": {
+      "name": "Přidat do Later",
+      "description": "Vytvoří immutable produkční tracker transaction pro vybraný AniList titul.",
+      "fields": {
+        "anilist_id": {
+          "name": "AniList ID",
+          "description": "AniList media ID titulu, který se má importovat jako Later."
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Later importer",
+        "description": "Nastaví GitHub zápis používaný jen při explicitním přidání NEW titulu do Later. Stav tokenu: {token_status}.",
+        "data": {
+          "github_token": "GitHub token",
+          "tracker_repository": "Tracker repository",
+          "tracker_branch": "Tracker branch",
+          "profile_id": "Tracker profile ID"
+        },
+        "data_description": {
+          "github_token": "Fine-grained token s oprávněním Contents: Read and write pouze pro tracker repo. Prázdné pole ponechá stávající token.",
+          "tracker_repository": "Repo, do kterého se zapisují immutable produkční transaction soubory.",
+          "tracker_branch": "Branch používaná pro transaction commity.",
+          "profile_id": "Profil, kterému se nastaví intent Later."
+        }
+      }
     }
   }
 }
