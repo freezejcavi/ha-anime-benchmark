@@ -3,8 +3,11 @@ class AnimeBenchmarkCard extends HTMLElement {
     this.config = {
       title_entity: "text.anime_benchmark_title",
       rating_entity: "sensor.anime_benchmark_rating",
+      height: 390,
       ...config,
     };
+    const height = Math.max(320, Math.min(700, Number(this.config.height) || 390));
+    this.style.setProperty("--anime-benchmark-card-height", `${height}px`);
     if (!this.shadowRoot) this.attachShadow({ mode: "open" });
     this._ensureStructure();
   }
@@ -37,44 +40,135 @@ class AnimeBenchmarkCard extends HTMLElement {
     if (!this.shadowRoot || this._initialized) return;
     this.shadowRoot.innerHTML = `
       <style>
-        ha-card{padding:16px;border-radius:var(--ha-card-border-radius,12px)}
-        .search{display:flex;gap:10px}
-        .search input{flex:1;min-width:0;padding:11px 12px;border:1px solid var(--divider-color);border-radius:10px;background:var(--card-background-color);color:var(--primary-text-color);font:inherit}
-        .search button,.pick{padding:0 16px;border:0;border-radius:10px;background:var(--primary-color);color:var(--text-primary-color,#fff);font-weight:600;cursor:pointer}
+        :host{display:block}
+        ha-card{
+          height:var(--anime-benchmark-card-height,390px);
+          border-radius:var(--ha-card-border-radius,12px);
+          overflow:hidden;
+        }
+        .layout{
+          height:100%;
+          box-sizing:border-box;
+          padding:18px 16px 12px;
+          display:flex;
+          flex-direction:column;
+          min-height:0;
+        }
+        .heading{
+          flex:0 0 auto;
+          font-size:24px;
+          font-weight:500;
+          line-height:1.2;
+          margin:2px 0 16px;
+        }
+        .search{display:flex;gap:10px;flex:0 0 auto}
+        .search input{
+          flex:1;min-width:0;padding:11px 12px;
+          border:1px solid var(--divider-color);
+          border-radius:10px;
+          background:var(--card-background-color);
+          color:var(--primary-text-color);
+          font:inherit
+        }
+        .search button,.pick{
+          padding:0 16px;border:0;border-radius:10px;
+          background:var(--primary-color);
+          color:var(--text-primary-color,#fff);
+          font-weight:600;cursor:pointer
+        }
         .search button:disabled,.pick:disabled{opacity:.55;cursor:default}
-        .status{display:flex;align-items:center;gap:8px;margin-top:12px;padding:9px 11px;border-radius:9px;background:var(--secondary-background-color);font-size:13px}
+        .status{
+          display:flex;align-items:center;gap:8px;
+          flex:0 0 auto;
+          margin-top:12px;padding:9px 11px;border-radius:9px;
+          background:var(--secondary-background-color);font-size:13px;
+          min-width:0
+        }
+        #status-text{
+          min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+        }
         .dot{width:8px;height:8px;border-radius:50%;background:var(--secondary-text-color);flex:0 0 auto}
         .status.busy .dot{background:var(--primary-color);animation:pulse 1s ease-in-out infinite}
         .status.done .dot{background:var(--success-color,#4caf50)}
         .status.error .dot{background:var(--error-color)}
         @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
-        .elapsed{margin-left:auto;color:var(--secondary-text-color)}
-        .result{display:flex;gap:14px;margin-top:16px}
+        .elapsed{margin-left:auto;color:var(--secondary-text-color);flex:0 0 auto}
+        .scroll-region{
+          flex:1 1 auto;
+          min-height:0;
+          overflow-y:auto;
+          overflow-x:hidden;
+          scrollbar-gutter:stable;
+          margin-top:10px;
+          padding-right:4px;
+        }
+        .scroll-region:empty{margin-top:0}
+        .result{display:flex;gap:14px;padding:2px 0 8px}
         .result img{width:82px;min-width:82px;aspect-ratio:2/3;border-radius:10px;object-fit:cover}
-        .body{min-width:0}.found{font-weight:700}.rating{font-size:30px;font-weight:800;margin:4px 0}
+        .body{min-width:0}
+        .found,.candidate .title{
+          font-weight:700;
+          display:-webkit-box;
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:2;
+          overflow:hidden;
+          overflow-wrap:anywhere
+        }
+        .rating{font-size:30px;font-weight:800;margin:4px 0}
         .meta,.genres{color:var(--secondary-text-color);font-size:13px;margin:3px 0}
-        .error{margin-top:12px;color:var(--error-color)}
+        .genres{
+          display:-webkit-box;
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:2;
+          overflow:hidden;
+          overflow-wrap:anywhere
+        }
+        .error{padding:6px 0;color:var(--error-color);overflow-wrap:anywhere}
         a{display:inline-block;margin-top:8px;color:var(--primary-color);font-weight:600;text-decoration:none}
-        .candidates{display:grid;gap:8px;margin-top:12px}
-        .candidate{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid var(--divider-color);border-radius:10px}
+        .candidates{display:grid;gap:8px;padding:2px 0 8px}
+        .candidate{
+          display:flex;align-items:center;gap:10px;
+          padding:8px;border:1px solid var(--divider-color);
+          border-radius:10px;min-height:64px;box-sizing:border-box
+        }
         .candidate img{width:44px;height:62px;object-fit:cover;border-radius:6px;flex:0 0 auto}
         .candidate .info{min-width:0;flex:1}
-        .candidate .title{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .candidate .sub{font-size:12px;color:var(--secondary-text-color);margin-top:2px}
-        .candidate .pick{height:34px;padding:0 12px}
-        details{margin-top:12px;border-top:1px solid var(--divider-color);padding-top:10px}
+        .candidate .pick{height:34px;padding:0 12px;flex:0 0 auto}
+        details{
+          flex:0 0 auto;
+          margin-top:8px;border-top:1px solid var(--divider-color);padding-top:8px
+        }
         summary{cursor:pointer;color:var(--secondary-text-color);font-size:13px}
-        .log{margin-top:7px;display:grid;gap:4px;font-size:12px;color:var(--secondary-text-color)}
+        .log{
+          margin-top:7px;
+          display:grid;gap:4px;
+          max-height:72px;overflow-y:auto;
+          font-size:12px;color:var(--secondary-text-color)
+        }
+        .log div{overflow-wrap:anywhere}
       </style>
-      <ha-card header="Anime Benchmark">
-        <div class="search">
-          <input placeholder="Název anime">
-          <button>Vyhodnotit</button>
+      <ha-card>
+        <div class="layout">
+          <div class="heading">Anime Benchmark</div>
+          <div class="search">
+            <input maxlength="160" placeholder="Název anime">
+            <button>Vyhodnotit</button>
+          </div>
+          <div id="status" class="status">
+            <span class="dot"></span>
+            <span id="status-text">Připraveno</span>
+            <span id="elapsed" class="elapsed"></span>
+          </div>
+          <div class="scroll-region">
+            <div id="candidates"></div>
+            <div id="output"></div>
+          </div>
+          <details id="activity-wrap">
+            <summary>Aktivita</summary>
+            <div id="activity" class="log"></div>
+          </details>
         </div>
-        <div id="status" class="status"><span class="dot"></span><span id="status-text">Připraveno</span><span id="elapsed" class="elapsed"></span></div>
-        <div id="candidates"></div>
-        <div id="output"></div>
-        <details id="activity-wrap"><summary>Aktivita</summary><div id="activity" class="log"></div></details>
       </ha-card>`;
 
     this._input = this.shadowRoot.querySelector("input");
@@ -182,7 +276,7 @@ class AnimeBenchmarkCard extends HTMLElement {
       return `<div class="candidate">
         ${cover}
         <div class="info">
-          <div class="title">${this.esc(item.title || "")}</div>
+          <div class="title" title="${this.esc(item.title || "")}">${this.esc(item.title || "")}</div>
           <div class="sub">${this.esc(sub)}</div>
           ${url ? `<a href="${this.esc(url)}" target="_blank" rel="noopener noreferrer">AniList ↗</a>` : ""}
         </div>
@@ -219,7 +313,7 @@ class AnimeBenchmarkCard extends HTMLElement {
       <div class="result">
         ${cover}
         <div class="body">
-          <div class="found">${this.esc(a.title || "")}</div>
+          <div class="found" title="${this.esc(a.title || "")}">${this.esc(a.title || "")}</div>
           <div class="rating">★ ${this.esc(rating)}</div>
           <div class="meta">${this.esc(yearFormat)}</div>
           <div class="meta">Confidence: ${this.esc(a.confidence || "—")} · ${this.esc(a.model_version || "")}</div>
