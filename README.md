@@ -40,6 +40,7 @@ Dashboard karta:
 type: custom:anime-benchmark-card
 title_entity: text.anime_benchmark_title
 rating_entity: sensor.anime_benchmark_rating
+height: 390
 ```
 
 ## Co rating znamená
@@ -69,3 +70,8 @@ V1 scaffold obsahuje HA backend, vlastní dashboard card, AniList resolver, lok�
 - Status bar ukazuje aktuální fázi a dobu zpracování.
 - Rozbalovací **Aktivita** ukazuje poslední kroky operace.
 - Karta volá přímo `anime_benchmark.search`; nepoužívá závod mezi `text.set_value` a `button.press`.
+
+
+## Layout
+
+Od 0.2.2 má karta pevnou výšku (výchozí `390 px`). Kandidáti a výsledek používají vnitřní vertikální scroll pouze při přetečení. Dlouhé názvy se zobrazují maximálně na dva řádky a celý název zůstává dostupný v tooltipu. Výšku lze změnit parametrem `height` v YAML.
