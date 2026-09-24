@@ -13,6 +13,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.typing import ConfigType
 
 from .anilist import AniListClient
+from .catalog import CatalogIndex
 from .const import DOMAIN, PLATFORMS, STATIC_URL
 from .model import ModelBundle
 from .runtime import BenchmarkRuntime
@@ -46,7 +47,8 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     component_dir = Path(__file__).parent
     bundle = await hass.async_add_executor_job(ModelBundle.load, component_dir / "model_bundle.json")
-    runtime = BenchmarkRuntime(AniListClient(async_get_clientsession(hass)), bundle)
+    catalog = await hass.async_add_executor_job(CatalogIndex.load, component_dir / "catalog_index.json")
+    runtime = BenchmarkRuntime(AniListClient(async_get_clientsession(hass)), bundle, catalog)
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = runtime
 
     await hass.http.async_register_static_paths(
