@@ -1,4 +1,4 @@
-const ANIME_BENCHMARK_UI_VERSION = "0.3.1";
+const ANIME_BENCHMARK_UI_VERSION = "0.3.2";
 
 class AnimeBenchmarkCard extends HTMLElement {
   setConfig(config) {
