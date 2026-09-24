@@ -104,7 +104,6 @@ class BenchmarkRuntime:
 
             self.result = None
             self.candidates = []
-            self._candidate_raw = {}
             self._set_status("anilist", "Hledám na AniList…")
             found = await self.client.search_candidates(query)
             if not found:
@@ -126,7 +125,6 @@ class BenchmarkRuntime:
         except Exception as exc:
             self.result = None
             self.candidates = []
-            self._candidate_raw = {}
             self.error = str(exc) or exc.__class__.__name__
             self._finish_timing(started)
             self._set_status("error", f"Chyba po {self.elapsed_ms / 1000:.2f} s: {self.error}")
