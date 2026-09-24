@@ -1,14 +1,14 @@
-const ANIME_BENCHMARK_UI_VERSION = "0.3.0";
+const ANIME_BENCHMARK_UI_VERSION = "0.3.1";
 
 class AnimeBenchmarkCard extends HTMLElement {
   setConfig(config) {
     this.config = {
       title_entity: "text.anime_benchmark_title",
       rating_entity: "sensor.anime_benchmark_rating",
-      height: 390,
+      height: 410,
       ...config,
     };
-    const height = Math.max(320, Math.min(700, Number(this.config.height) || 390));
+    const height = Math.max(320, Math.min(700, Number(this.config.height) || 410));
     this.style.setProperty("--anime-benchmark-card-height", `${height}px`);
     if (!this.shadowRoot) this.attachShadow({ mode: "open" });
     this._ensureStructure();
@@ -55,28 +55,28 @@ class AnimeBenchmarkCard extends HTMLElement {
       <style>
         :host{display:block}
         ha-card{
-          height:var(--anime-benchmark-card-height,390px);
+          height:var(--anime-benchmark-card-height,410px);
           border-radius:var(--ha-card-border-radius,12px);
           overflow:hidden;
         }
         .layout{
           height:100%;
           box-sizing:border-box;
-          padding:18px 16px 12px;
+          padding:12px 12px 9px;
           display:flex;
           flex-direction:column;
           min-height:0;
         }
         .heading{
           flex:0 0 auto;
-          font-size:24px;
+          font-size:20px;
           font-weight:500;
           line-height:1.2;
-          margin:2px 0 16px;
+          margin:0 0 10px;
         }
         .search{display:flex;gap:10px;flex:0 0 auto}
         .search input{
-          flex:1;min-width:0;padding:11px 12px;
+          flex:1;min-width:0;padding:9px 10px;
           border:1px solid var(--divider-color);
           border-radius:10px;
           background:var(--card-background-color);
@@ -84,7 +84,7 @@ class AnimeBenchmarkCard extends HTMLElement {
           font:inherit
         }
         .search button,.pick{
-          padding:0 16px;border:0;border-radius:10px;
+          padding:0 14px;border:0;border-radius:10px;
           background:var(--primary-color);
           color:var(--text-primary-color,#fff);
           font-weight:600;cursor:pointer
@@ -93,10 +93,11 @@ class AnimeBenchmarkCard extends HTMLElement {
         .status{
           display:flex;align-items:center;gap:8px;
           flex:0 0 auto;
-          margin-top:12px;padding:9px 11px;border-radius:9px;
+          margin-top:8px;padding:6px 9px;border-radius:8px;
           background:var(--secondary-background-color);font-size:13px;
           min-width:0
         }
+        .status.hidden{display:none}
         #status-text{
           min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
         }
@@ -112,12 +113,12 @@ class AnimeBenchmarkCard extends HTMLElement {
           overflow-y:auto;
           overflow-x:hidden;
           scrollbar-gutter:stable;
-          margin-top:10px;
+          margin-top:6px;
           padding-right:4px;
         }
         .scroll-region:empty{margin-top:0}
-        .result{display:flex;gap:14px;padding:2px 0 8px}
-        .result img{width:82px;min-width:82px;aspect-ratio:2/3;border-radius:10px;object-fit:cover}
+        .result{display:flex;gap:12px;padding:2px 0 6px}
+        .result img{width:76px;min-width:76px;aspect-ratio:2/3;border-radius:10px;object-fit:cover}
         .body{min-width:0}
         .found,.candidate .title{
           font-weight:700;
@@ -127,7 +128,7 @@ class AnimeBenchmarkCard extends HTMLElement {
           overflow:hidden;
           overflow-wrap:anywhere
         }
-        .rating{font-size:30px;font-weight:800;margin:4px 0}
+        .rating{font-size:28px;font-weight:800;margin:3px 0}
         .meta,.genres{color:var(--secondary-text-color);font-size:13px;margin:3px 0}
         .genres{
           display:-webkit-box;
@@ -138,16 +139,16 @@ class AnimeBenchmarkCard extends HTMLElement {
         }
         .error{padding:6px 0;color:var(--error-color);overflow-wrap:anywhere}
         a{display:inline-block;margin-top:8px;color:var(--primary-color);font-weight:600;text-decoration:none}
-        .candidates{display:grid;gap:8px;padding:2px 0 8px}
+        .candidates{display:grid;gap:6px;padding:2px 0 6px}
         .candidate{
           display:flex;align-items:center;gap:10px;
-          padding:8px;border:1px solid var(--divider-color);
-          border-radius:10px;min-height:64px;box-sizing:border-box
+          padding:6px;border:1px solid var(--divider-color);
+          border-radius:9px;min-height:58px;box-sizing:border-box
         }
-        .candidate img{width:44px;height:62px;object-fit:cover;border-radius:6px;flex:0 0 auto}
+        .candidate img{width:40px;height:56px;object-fit:cover;border-radius:6px;flex:0 0 auto}
         .candidate .info{min-width:0;flex:1}
         .candidate .sub{font-size:12px;color:var(--secondary-text-color);margin-top:2px}
-        .candidate .pick{height:34px;padding:0 12px;flex:0 0 auto}
+        .candidate .pick{height:32px;padding:0 11px;flex:0 0 auto}
         .catalog-badge{
           display:inline-flex;align-items:center;
           margin-top:5px;padding:2px 7px;border-radius:999px;
@@ -170,7 +171,7 @@ class AnimeBenchmarkCard extends HTMLElement {
         }
         details{
           flex:0 0 auto;
-          margin-top:8px;border-top:1px solid var(--divider-color);padding-top:8px
+          margin-top:5px;border-top:1px solid var(--divider-color);padding-top:6px
         }
         summary{cursor:pointer;color:var(--secondary-text-color);font-size:13px}
         .log{
@@ -188,7 +189,7 @@ class AnimeBenchmarkCard extends HTMLElement {
             <input maxlength="160" placeholder="Název anime">
             <button>Vyhodnotit</button>
           </div>
-          <div id="status" class="status">
+          <div id="status" class="status hidden">
             <span class="dot"></span>
             <span id="status-text">Připraveno</span>
             <span id="elapsed" class="elapsed"></span>
@@ -255,10 +256,16 @@ class AnimeBenchmarkCard extends HTMLElement {
 
     if (!this._localBusy) {
       const phase = a.phase || "idle";
-      const kind = phase === "error" ? "error" : phase === "done" ? "done" : busy ? "busy" : "";
-      this._status.className = `status ${kind}`;
-      this._statusText.textContent = a.status_text || "Připraveno";
-      this._elapsed.textContent = a.elapsed_ms != null ? `${(Number(a.elapsed_ms) / 1000).toFixed(2)} s` : "";
+      const showStatus = Boolean(a.busy) || phase === "error";
+      if (showStatus) {
+        const kind = phase === "error" ? "error" : "busy";
+        this._status.className = `status ${kind}`;
+        this._statusText.textContent = a.status_text || "Pracuji…";
+        this._elapsed.textContent = a.elapsed_ms != null ? `${(Number(a.elapsed_ms) / 1000).toFixed(2)} s` : "";
+      } else {
+        this._status.className = "status hidden";
+        this._elapsed.textContent = "";
+      }
     }
 
     this._renderActivity(a.activity_log || []);
