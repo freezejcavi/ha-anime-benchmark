@@ -115,3 +115,45 @@ This removes the need to manually edit the resource URL after normal HACS update
 ## Release marker
 
 Releases are triggered only when `.release-version` is updated to match the manifest version. This marker is intentionally committed last so the generated GitHub tag always contains the complete version payload.
+
+
+## One-click Later importer
+
+From v0.4 the final **NEW** benchmark result can be submitted directly to the canonical tracker as **Later**.
+
+Runtime flow:
+
+`NEW result -> + Later -> GitHub transaction -> tracker PROD writer -> Supabase`
+
+The Home Assistant integration never receives a database credential and never writes to Supabase directly. It creates one immutable transaction file in `freezejcavi/anime-series-tracker`. The existing tracker GitHub Actions writer validates the transaction, applies it atomically, runs the continuity gate, and records it in the transaction ledger.
+
+### One-time GitHub setup
+
+Create a fine-grained GitHub personal access token limited to:
+
+- Repository: `freezejcavi/anime-series-tracker`
+- Repository permission: **Contents: Read and write**
+
+No database credential is stored in Home Assistant.
+
+Then open:
+
+`Settings -> Devices & services -> Anime Benchmark -> Configure`
+
+and paste the token. Leave the defaults unless the tracker repository/profile changes:
+
+- repository: `freezejcavi/anime-series-tracker`
+- branch: `main`
+- profile: `pr_4a017461bfff446d`
+
+A blank token field on a later Configure visit keeps the already stored token.
+
+### Safety behavior
+
+- The card exposes **+ Later** only for a final result classified as **NEW**.
+- The backend re-fetches the AniList record by ID before submission; metadata is not trusted from browser JS.
+- The transaction carries AniList ID, verified metadata, mapped taxonomy and benchmark audit values.
+- The tracker importer checks AniList ID first and is duplicate-safe.
+- Ambiguous franchise matches fail instead of guessing.
+- Existing watched/active state is never silently overwritten.
+- The card says **Odesláno importeru** after the GitHub transaction is accepted. This means submitted to the automatic importer, not a claim that the database workflow has already completed.
