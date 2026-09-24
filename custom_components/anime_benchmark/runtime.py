@@ -6,6 +6,7 @@ from typing import Callable
 
 from .anilist import AniListClient, AniListResult
 from .catalog import CatalogIndex
+from .github_writer import GitHubTransactionWriter
 from .model import ModelBundle
 from .scorer import score
 from .taxonomy import from_anilist
@@ -16,6 +17,7 @@ class BenchmarkRuntime:
     client: AniListClient
     bundle: ModelBundle
     catalog: CatalogIndex
+    writer: GitHubTransactionWriter
     query: str = ""
     result: dict | None = None
     candidates: list[dict] = field(default_factory=list)
@@ -26,6 +28,10 @@ class BenchmarkRuntime:
     elapsed_ms: int | None = None
     activity_log: list[str] = field(default_factory=lambda: ["Připraveno"])
     listeners: list[Callable[[], None]] = field(default_factory=list)
+
+    @property
+    def queue_configured(self) -> bool:
+        return self.writer.configured
 
     def set_query(self, value: str) -> None:
         self.query = value.strip()
@@ -136,6 +142,86 @@ class BenchmarkRuntime:
             self.error = str(exc) or exc.__class__.__name__
             self._finish_timing(started)
             self._set_status("error", f"Chyba po {self.elapsed_ms / 1000:.2f} s: {self.error}")
+        finally:
+            self.busy = False
+            self._notify()
+
+    async def add_later(self, anilist_id: int) -> None:
+        started = monotonic()
+        self.error = None
+        self.busy = True
+        self._set_status("queueing", "Ověřuji titul před importem…")
+
+        try:
+            if not self.writer.configured:
+                raise RuntimeError(
+                    "Later importer není nakonfigurovaný. Otevři Configure u Anime Benchmark a vlož GitHub token."
+                )
+
+            found = await self.client.get_by_id(int(anilist_id))
+            catalog_match = self.catalog.match_media(found.raw)
+            if catalog_match.get("tracked"):
+                raise RuntimeError(
+                    f"Titul je už v trackeru jako {catalog_match.get('canonical_title') or found.title}."
+                )
+
+            self._set_status("queueing", "Připravuji bezpečný tracker transaction…")
+            signals = from_anilist(found.raw)
+            scored = score(signals, self.bundle)
+
+            transaction = await self.writer.submit_later(
+                media=found.raw,
+                canonical_title=found.title,
+                taxonomy=[
+                    {
+                        "namespace": signal.namespace,
+                        "term": signal.term,
+                        "weight": round(float(signal.source_strength), 4),
+                    }
+                    for signal in signals
+                ],
+                benchmark={
+                    "rating": scored.rating,
+                    "affinity_index": scored.affinity_index,
+                    "confidence": scored.confidence,
+                    "model_version": self.bundle.data["model_version"],
+                    "taxonomy_mapping_version": self.bundle.data.get(
+                        "taxonomy_mapping_version"
+                    ),
+                },
+            )
+
+            if self.result is None or self.result.get("anilist_id") != int(anilist_id):
+                self.result = {
+                    "title": found.title,
+                    "anilist_id": found.raw.get("id"),
+                    "anilist_url": found.raw.get("siteUrl"),
+                    "cover_url": (found.raw.get("coverImage") or {}).get("large"),
+                    "rating": scored.rating,
+                    "confidence": scored.confidence,
+                    "catalog": catalog_match,
+                    "model_version": self.bundle.data["model_version"],
+                }
+
+            self.result["queue_status"] = "submitted"
+            self.result["queue_transaction_id"] = transaction["transaction_id"]
+            self.result["queue_commit_sha"] = transaction.get("commit_sha")
+            self.result["queue_path"] = transaction["path"]
+            self.result["queue_url"] = transaction.get("html_url")
+            self._finish_timing(started)
+            self._set_status(
+                "queued",
+                f"Odesláno importeru za {self.elapsed_ms / 1000:.2f} s",
+            )
+        except Exception as exc:
+            self.error = str(exc) or exc.__class__.__name__
+            if self.result is not None:
+                self.result["queue_status"] = "error"
+            self._finish_timing(started)
+            self._set_status(
+                "error",
+                f"Import se nepodařil: {self.error}",
+            )
         finally:
             self.busy = False
             self._notify()
