@@ -59,6 +59,9 @@ jobs:
       - name: Compile Python sources
         run: python -m compileall -q custom_components tools
 
+      - name: Check runtime slot assignments
+        run: python tools/check_runtime_slots.py
+
       - name: Check frontend syntax
         run: node --check custom_components/anime_benchmark/static/anime-benchmark-card.js
 
