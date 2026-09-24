@@ -95,3 +95,18 @@ The frontend resource URL remains:
 From v0.3 this file is a stable loader. It imports the actual card implementation with a cache-busting query string on each page load. After the one-time transition to v0.3, normal browser reloads should pick up future card changes without manual resource URL versioning.
 
 The card itself displays its UI version in the **Aktivita** footer, making backend/frontend version mismatches visible.
+
+
+## Automatic Lovelace resource versioning (v0.3.2+)
+
+The integration now manages its own Lovelace card resource when Lovelace resources use storage mode. On startup it:
+
+1. Finds existing Anime Benchmark resources.
+2. Updates the primary resource to the direct implementation URL with the installed integration version as a cache-busting query parameter.
+3. Removes stale duplicate Anime Benchmark resource entries.
+
+Example:
+
+`/api/anime_benchmark/static/anime-benchmark-card.impl.js?v=0.3.2`
+
+This removes the need to manually edit the resource URL after normal HACS updates.
