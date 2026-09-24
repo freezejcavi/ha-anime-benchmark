@@ -30,4 +30,5 @@ class AnimeBenchmarkRating(AnimeBenchmarkEntity, SensorEntity):
         result["activity_log"] = list(self.runtime.activity_log)
         result["candidates"] = list(self.runtime.candidates)
         result["error"] = self.runtime.error
+        result["queue_configured"] = self.runtime.queue_configured
         return result
