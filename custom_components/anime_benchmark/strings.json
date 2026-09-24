@@ -39,6 +39,36 @@
           "description": "Optional candidate ID selected from search results."
         }
       }
+    },
+    "add_later": {
+      "name": "Add to Later",
+      "description": "Create an immutable tracker production transaction for the selected AniList title.",
+      "fields": {
+        "anilist_id": {
+          "name": "AniList ID",
+          "description": "AniList media ID to import as Later."
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Later importer",
+        "description": "Configure the GitHub writer used only when you explicitly add a NEW title to Later. Token status: {token_status}.",
+        "data": {
+          "github_token": "GitHub token",
+          "tracker_repository": "Tracker repository",
+          "tracker_branch": "Tracker branch",
+          "profile_id": "Tracker profile ID"
+        },
+        "data_description": {
+          "github_token": "Fine-grained token with Contents: Read and write for the tracker repository. Leave blank to keep the current token.",
+          "tracker_repository": "Repository receiving immutable production transaction files.",
+          "tracker_branch": "Branch used for transaction commits.",
+          "profile_id": "Profile that receives the Later intent."
+        }
+      }
     }
   }
 }
