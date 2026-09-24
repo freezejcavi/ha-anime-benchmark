@@ -56,6 +56,9 @@ jobs:
       - name: Validate model bundle
         run: python tools/validate_bundle.py
 
+      - name: Validate tracker catalog
+        run: python tools/validate_catalog.py
+
       - name: Compile Python sources
         run: python -m compileall -q custom_components tools
 
@@ -63,7 +66,11 @@ jobs:
         run: python tools/check_runtime_slots.py
 
       - name: Check frontend syntax
-        run: node --check custom_components/anime_benchmark/static/anime-benchmark-card.js
+        shell: bash
+        run: |
+          for file in custom_components/anime_benchmark/static/*.js; do
+            node --check "$file"
+          done
 
       - name: Check whether release already exists
         id: existing
