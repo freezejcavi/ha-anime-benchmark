@@ -75,3 +75,23 @@ V1 scaffold obsahuje HA backend, vlastní dashboard card, AniList resolver, lok�
 ## Layout
 
 Od 0.2.2 má karta pevnou výšku (výchozí `390 px`). Kandidáti a výsledek používají vnitřní vertikální scroll pouze při přetečení. Dlouhé názvy se zobrazují maximálně na dva řádky a celý název zůstává dostupný v tooltipu. Výšku lze změnit parametrem `height` v YAML.
+
+
+## v0.3 catalog awareness
+
+The integration ships a read-only local tracker catalog exported from the canonical Supabase tracker.
+
+For each AniList candidate/result the card displays:
+
+- **TRACKED** — conservative canonical/alias franchise match exists in the tracker.
+- **NEW** — no local tracker match was found.
+
+The current fallback is intentionally conservative: exact normalized title match first, then a guarded franchise-prefix match. It does not write to the tracker.
+
+The frontend resource URL remains:
+
+`/api/anime_benchmark/static/anime-benchmark-card.js`
+
+From v0.3 this file is a stable loader. It imports the actual card implementation with a cache-busting query string on each page load. After the one-time transition to v0.3, normal browser reloads should pick up future card changes without manual resource URL versioning.
+
+The card itself displays its UI version in the **Aktivita** footer, making backend/frontend version mismatches visible.
