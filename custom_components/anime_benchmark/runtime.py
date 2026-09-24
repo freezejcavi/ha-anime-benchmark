@@ -5,6 +5,7 @@ from time import monotonic
 from typing import Callable
 
 from .anilist import AniListClient, AniListResult
+from .catalog import CatalogIndex
 from .model import ModelBundle
 from .scorer import score
 from .taxonomy import from_anilist
@@ -14,6 +15,7 @@ from .taxonomy import from_anilist
 class BenchmarkRuntime:
     client: AniListClient
     bundle: ModelBundle
+    catalog: CatalogIndex
     query: str = ""
     result: dict | None = None
     candidates: list[dict] = field(default_factory=list)
@@ -53,6 +55,7 @@ class BenchmarkRuntime:
         self._set_status("scoring", f"Počítám rating: {found.title}")
         signals = from_anilist(found.raw)
         scored = score(signals, self.bundle)
+        catalog_match = self.catalog.match_media(found.raw)
         self.result = {
             "title": found.title,
             "rating": scored.rating,
@@ -75,6 +78,7 @@ class BenchmarkRuntime:
             "component_scores": scored.component_scores,
             "model_version": self.bundle.data["model_version"],
             "taxonomy_mapping_version": self.bundle.data.get("taxonomy_mapping_version"),
+            "catalog": catalog_match,
         }
         self._finish_timing(started)
         self._set_status("done", f"Hotovo za {self.elapsed_ms / 1000:.2f} s")
@@ -115,7 +119,11 @@ class BenchmarkRuntime:
                 await self._score_result(exact[0], started)
                 return
 
-            self.candidates = [item.summary(query) for item in found]
+            self.candidates = []
+            for item in found:
+                summary = item.summary(query)
+                summary["catalog"] = self.catalog.match_titles(summary.get("titles") or [])
+                self.candidates.append(summary)
             self._finish_timing(started)
             count = len(self.candidates)
             self._set_status(
