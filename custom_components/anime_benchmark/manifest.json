@@ -1,7 +1,7 @@
 {
   "domain": "anime_benchmark",
   "name": "Anime Benchmark",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "documentation": "https://github.com/freezejcavi/ha-anime-benchmark",
   "issue_tracker": "https://github.com/freezejcavi/ha-anime-benchmark/issues",
   "codeowners": [
@@ -11,5 +11,8 @@
   "single_config_entry": true,
   "integration_type": "service",
   "iot_class": "cloud_polling",
-  "requirements": []
+  "requirements": [],
+  "dependencies": [
+    "lovelace"
+  ]
 }
