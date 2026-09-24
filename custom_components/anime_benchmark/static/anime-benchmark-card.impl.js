@@ -1,4 +1,4 @@
-const ANIME_BENCHMARK_UI_VERSION = "0.4.0";
+const ANIME_BENCHMARK_UI_VERSION = "0.4.1";
 
 class AnimeBenchmarkCard extends HTMLElement {
   setConfig(config) {
@@ -36,6 +36,58 @@ class AnimeBenchmarkCard extends HTMLElement {
     } catch (_) {
       return null;
     }
+  }
+
+  normalizeTrackerTitle(value) {
+    return String(value ?? "")
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  }
+
+  liveTrackerMatch(titles) {
+    const state = this._hass?.states?.["sensor.anime_tracker_home_feed"];
+    const attrs = state?.attributes || {};
+    const probes = (Array.isArray(titles) ? titles : [titles])
+      .map((value) => this.normalizeTrackerTitle(value))
+      .filter(Boolean);
+
+    if (!probes.length) return null;
+
+    const groups = [
+      attrs.active_items,
+      attrs.later_items,
+      attrs.waiting_dub_items,
+      attrs.waiting_release_items,
+    ];
+
+    for (const group of groups) {
+      if (!Array.isArray(group)) continue;
+      for (const item of group) {
+        for (const value of [item?.franchise_title, item?.content_title]) {
+          const normalized = this.normalizeTrackerTitle(value);
+          if (normalized && probes.includes(normalized)) {
+            return {
+              tracked: true,
+              canonical_title: item?.franchise_title || value,
+              matched_title: value,
+              match_type: "live_home_feed",
+            };
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  effectiveCatalog(catalog, titles) {
+    if (catalog?.tracked) return catalog;
+    return this.liveTrackerMatch(titles) || catalog || {
+      tracked: false,
+      match_type: "none",
+    };
   }
 
   catalogBadge(catalog) {
@@ -307,17 +359,23 @@ class AnimeBenchmarkCard extends HTMLElement {
 
     const list = Array.isArray(candidates) ? candidates : [];
     const signature = JSON.stringify(
-      list.map((item) => [
-        item.id,
-        item.title,
-        item.year,
-        item.format,
-        item.cover_url,
-        item.anilist_url,
-        item.catalog?.tracked,
-        item.catalog?.franchise_id,
-        item.catalog?.match_type,
-      ])
+      list.map((item) => {
+        const effectiveCatalog = this.effectiveCatalog(
+          item.catalog,
+          item.titles || [item.title]
+        );
+        return [
+          item.id,
+          item.title,
+          item.year,
+          item.format,
+          item.cover_url,
+          item.anilist_url,
+          effectiveCatalog?.tracked,
+          effectiveCatalog?.canonical_title,
+          effectiveCatalog?.match_type,
+        ];
+      })
     );
 
     // HA pushes the full hass object on every state change anywhere in the system.
@@ -340,7 +398,11 @@ class AnimeBenchmarkCard extends HTMLElement {
       const url = this.safeAniListUrl(item.anilist_url);
       const cover = item.cover_url ? `<img src="${this.esc(item.cover_url)}" alt="">` : "";
       const sub = [item.year, item.format].filter(Boolean).join(" · ");
-      const catalog = this.catalogBadge(item.catalog);
+      const effectiveCatalog = this.effectiveCatalog(
+        item.catalog,
+        item.titles || [item.title]
+      );
+      const catalog = this.catalogBadge(effectiveCatalog);
       return `<div class="candidate">
         ${cover}
         <div class="info">
@@ -377,8 +439,12 @@ class AnimeBenchmarkCard extends HTMLElement {
       ? `<img src="${this.esc(a.cover_url)}" alt="${this.esc(a.title || "Anime cover")}" />`
       : "";
     const yearFormat = [a.year, a.format].filter(Boolean).join(" · ");
-    const catalog = this.catalogBadge(a.catalog);
-    const isNew = a.catalog && !a.catalog.tracked;
+    const effectiveCatalog = this.effectiveCatalog(
+      a.catalog,
+      a.titles || [a.title]
+    );
+    const catalog = this.catalogBadge(effectiveCatalog);
+    const isNew = effectiveCatalog && !effectiveCatalog.tracked;
     let laterAction = "";
     if (isNew) {
       if (a.queue_status === "submitted") {
