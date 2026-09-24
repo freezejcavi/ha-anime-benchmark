@@ -10,3 +10,12 @@ search:
         number:
           min: 1
           mode: box
+
+add_later:
+  fields:
+    anilist_id:
+      required: true
+      selector:
+        number:
+          min: 1
+          mode: box
