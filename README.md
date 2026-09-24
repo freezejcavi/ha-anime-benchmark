@@ -157,3 +157,23 @@ A blank token field on a later Configure visit keeps the already stored token.
 - Ambiguous franchise matches fail instead of guessing.
 - Existing watched/active state is never silently overwritten.
 - The card says **Odesláno importeru** after the GitHub transaction is accepted. This means submitted to the automatic importer, not a claim that the database workflow has already completed.
+
+
+## Live tracker status overlay (v0.4.1+)
+
+The bundled `catalog_index.json` remains the fast offline baseline for TRACKED/NEW detection.
+
+For titles that are not present in that snapshot, the Lovelace card additionally reads the existing Home Assistant entity:
+
+`sensor.anime_tracker_home_feed`
+
+and checks its live queue attributes:
+
+- `active_items`
+- `later_items`
+- `waiting_dub_items`
+- `waiting_release_items`
+
+The card does not add a polling timer or another database/GitHub request. Home Assistant already pushes updated state objects to the card whenever the tracker feed changes. A newly imported title therefore changes from **NEW** to **TRACKED** on the next normal tracker-feed update.
+
+If the tracker feed entity is unavailable, the card simply falls back to the bundled catalog snapshot.
