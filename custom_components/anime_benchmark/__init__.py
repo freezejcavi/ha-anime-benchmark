@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import json
 
 import voluptuous as vol
 
@@ -15,10 +16,17 @@ from homeassistant.helpers.typing import ConfigType
 from .anilist import AniListClient
 from .catalog import CatalogIndex
 from .const import DOMAIN, PLATFORMS, STATIC_URL
+from .frontend import async_ensure_lovelace_resource
 from .model import ModelBundle
 from .runtime import BenchmarkRuntime
 
 SERVICE_SEARCH = "search"
+
+
+def _read_manifest_version(component_dir: Path) -> str:
+    manifest = json.loads((component_dir / "manifest.json").read_text(encoding="utf-8"))
+    return str(manifest["version"])
+
 SERVICE_SEARCH_SCHEMA = vol.Schema(
     {
         vol.Required("query"): cv.string,
@@ -54,6 +62,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     await hass.http.async_register_static_paths(
         [StaticPathConfig(STATIC_URL, str(component_dir / "static"), False)]
     )
+
+    version = await hass.async_add_executor_job(_read_manifest_version, component_dir)
+    await async_ensure_lovelace_resource(hass, version)
+
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 
