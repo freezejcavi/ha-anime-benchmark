@@ -1,7 +1,7 @@
 {
   "domain": "anime_benchmark",
   "name": "Anime Benchmark",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "documentation": "https://github.com/freezejcavi/ha-anime-benchmark",
   "issue_tracker": "https://github.com/freezejcavi/ha-anime-benchmark/issues",
   "codeowners": [
