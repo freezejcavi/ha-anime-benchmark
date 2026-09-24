@@ -110,3 +110,8 @@ Example:
 `/api/anime_benchmark/static/anime-benchmark-card.impl.js?v=0.3.2`
 
 This removes the need to manually edit the resource URL after normal HACS updates.
+
+
+## Release marker
+
+Releases are triggered only when `.release-version` is updated to match the manifest version. This marker is intentionally committed last so the generated GitHub tag always contains the complete version payload.
