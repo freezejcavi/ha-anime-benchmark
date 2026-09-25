@@ -489,6 +489,11 @@
     },
     {
       "aliases": [],
+      "franchise_id": "fr_3648b0f8c5ed610e",
+      "canonical_title": "TRIGUN STAMPEDE"
+    },
+    {
+      "aliases": [],
       "franchise_id": "fr_6e5b5a0bb52b478c",
       "canonical_title": "TSUKIMICHI -Moonlit Fantasy-"
     },
@@ -516,6 +521,6 @@
       "canonical_title": "Yasuke"
     }
   ],
-  "generated_at": "2026-09-24T07:34:34.403983+00:00",
+  "generated_at": "2026-09-25T10:03:41.410463+00:00",
   "schema_version": 1
 }
