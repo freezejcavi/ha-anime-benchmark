@@ -1,4 +1,4 @@
-const ANIME_BENCHMARK_UI_VERSION = "V2-dev";
+const ANIME_BENCHMARK_UI_VERSION = "0.5.0";
 
 class AnimeBenchmarkCard extends HTMLElement {
   setConfig(config) {
