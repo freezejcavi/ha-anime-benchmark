@@ -7,17 +7,17 @@ from typing import Callable
 from .anilist import AniListClient, AniListResult
 from .catalog import CatalogIndex
 from .github_writer import GitHubTransactionWriter
-from .model import ModelBundle
-from .scorer import score
+from .v2_model import AffinityV2Catalog
 from .taxonomy import from_anilist
 
 
 @dataclass(slots=True)
 class BenchmarkRuntime:
     client: AniListClient
-    bundle: ModelBundle
+    v2: AffinityV2Catalog
     catalog: CatalogIndex
     writer: GitHubTransactionWriter
+    live_score_getter: Callable[[str], float | None] | None = None
     query: str = ""
     result: dict | None = None
     candidates: list[dict] = field(default_factory=list)
@@ -58,17 +58,51 @@ class BenchmarkRuntime:
 
     async def _score_result(self, found: AniListResult, started: float) -> None:
         self.candidates = []
-        self._set_status("scoring", f"Počítám rating: {found.title}")
-        signals = from_anilist(found.raw)
-        scored = score(signals, self.bundle)
-        catalog_match = self.catalog.match_media(found.raw)
+        self._set_status("scoring", f"Vyhodnocuji Affinity V2: {found.title}")
+        catalog = self.catalog.match_media(found.raw)
+        exact_tracked = catalog.get("tracked") and catalog.get("match_type") == "exact"
+        franchise_id = catalog.get("franchise_id") if exact_tracked else None
+
+        if exact_tracked:
+            live_score = self.live_score_getter(franchise_id) if self.live_score_getter else None
+            snapshot_score = self.v2.score_for(franchise_id)
+            value = live_score if live_score is not None else snapshot_score
+            result_score = {
+                "rating": value,
+                "range_min": None,
+                "range_max": None,
+                "score_status": "tracked_v2" if value is not None else "tracked_unscored",
+                "score_source": (
+                    "live_ha_feed" if live_score is not None
+                    else ("prod_snapshot" if snapshot_score is not None else "unavailable")
+                ),
+                "model_version": "affinity-v2",
+                "rating_note": (
+                    "Kanonické V2 skóre ze živého HA feedu." if live_score is not None
+                    else (
+                        f"V2 PROD snapshot z {self.v2.snapshot_date}; mezi releasy může zastarat."
+                        if snapshot_score is not None else
+                        "Pro tuto franšízu zatím nemáme kanonické V2 skóre."
+                    )
+                ),
+            }
+        elif catalog.get("tracked"):
+            # Prefix matches intentionally do not inherit another franchise's score.
+            result_score = {
+                "rating": None,
+                "range_min": None,
+                "range_max": None,
+                "score_status": "ambiguous_tracked",
+                "score_source": "unavailable",
+                "model_version": "affinity-v2",
+                "rating_note": "Pouze přibližná shoda názvu s trackerem; skóre bez potvrzení identity neodhadujeme.",
+            }
+        else:
+            result_score = self.v2.estimate_new(found.raw)
+
         self.result = {
             "title": found.title,
-            "rating": scored.rating,
-            "confidence": scored.confidence,
-            "evidence_coverage": scored.evidence_coverage,
-            "affinity_index": scored.affinity_index,
-            "base_affinity_index": scored.base_affinity_index,
+            **result_score,
             "anilist_id": found.raw.get("id"),
             "anilist_url": found.raw.get("siteUrl"),
             "cover_url": (found.raw.get("coverImage") or {}).get("large"),
@@ -80,11 +114,7 @@ class BenchmarkRuntime:
             "episodes": found.raw.get("episodes"),
             "duration": found.raw.get("duration"),
             "genres": found.raw.get("genres") or [],
-            "matched_taxonomy": [f"{s.namespace}:{s.term}" for s in signals],
-            "component_scores": scored.component_scores,
-            "model_version": self.bundle.data["model_version"],
-            "taxonomy_mapping_version": self.bundle.data.get("taxonomy_mapping_version"),
-            "catalog": catalog_match,
+            "catalog": catalog,
         }
         self._finish_timing(started)
         self._set_status("done", f"Hotovo za {self.elapsed_ms / 1000:.2f} s")
@@ -167,7 +197,7 @@ class BenchmarkRuntime:
 
             self._set_status("queueing", "Připravuji bezpečný tracker transaction…")
             signals = from_anilist(found.raw)
-            scored = score(signals, self.bundle)
+            estimate = self.v2.estimate_new(found.raw)
 
             transaction = await self.writer.submit_later(
                 media=found.raw,
@@ -181,13 +211,13 @@ class BenchmarkRuntime:
                     for signal in signals
                 ],
                 benchmark={
-                    "rating": scored.rating,
-                    "affinity_index": scored.affinity_index,
-                    "confidence": scored.confidence,
-                    "model_version": self.bundle.data["model_version"],
-                    "taxonomy_mapping_version": self.bundle.data.get(
-                        "taxonomy_mapping_version"
-                    ),
+                    "rating": estimate["rating"],
+                    "range_min": estimate["range_min"],
+                    "range_max": estimate["range_max"],
+                    "score_status": estimate["score_status"],
+                    "model_version": "affinity-v2-prewatch-proxy",
+                    "story_arc": None,
+                    "taxonomy_mapping_version": "anilist-conservative-v2-20261029",
                 },
             )
 
@@ -197,10 +227,8 @@ class BenchmarkRuntime:
                     "anilist_id": found.raw.get("id"),
                     "anilist_url": found.raw.get("siteUrl"),
                     "cover_url": (found.raw.get("coverImage") or {}).get("large"),
-                    "rating": scored.rating,
-                    "confidence": scored.confidence,
+                    **estimate,
                     "catalog": catalog_match,
-                    "model_version": self.bundle.data["model_version"],
                 }
 
             self.result["queue_status"] = "submitted"
