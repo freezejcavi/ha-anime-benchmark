@@ -177,3 +177,35 @@ and checks its live queue attributes:
 The card does not add a polling timer or another database/GitHub request. Home Assistant already pushes updated state objects to the card whenever the tracker feed changes. A newly imported title therefore changes from **NEW** to **TRACKED** on the next normal tracker-feed update.
 
 If the tracker feed entity is unavailable, the card simply falls back to the bundled catalog snapshot.
+
+## Affinity V2 Benchmark — development candidate (not yet released)
+
+**V2 replaces the displayed V1.4 score.** The local V1.4 bundle is retained for
+historical compatibility but is **not used** by the V2 benchmark runtime.
+
+- **TRACKED (exact identity):** V2 franchise score from the existing Home
+  Assistant `sensor.anime_tracker_home_feed` where that franchise is present
+  in Active/Later/Waiting. Otherwise the package uses
+  `affinity_v2_snapshot.json`, a **dated** read-only export from Supabase PROD
+  (2026-10-29; 253 franchises / 252 scored / one deferred). This value is the
+  PROD V2 result *at snapshot time*, not an assertion that the snapshot updates
+  itself. Refresh the snapshot before future Benchmark releases.
+- **TRACKED (only prefix match):** no numeric score is returned, to avoid
+  silently assigning a different franchise's rating.
+- **NEW:** AniList genres plus a conservative curated subset of non-spoiler
+  tags are mapped to the approved V2 23-genre / 56-subgenre rank registries.
+  The preview uses V2's 10/40/50 weights but **Story Arc is unknown**.
+  It displays a conditional central proxy (Arc=2) and a 0..4 Arc range;
+  this is not the canonical V2 result or a verified probability interval.
+  Missing required taxonomy -> unscored, never a fabricated zero.
+- Pre-watch NEW scores have no personal user-rating adjustment.
+- **+ Later** retains GitHub immutable transaction workflow. Its benchmark
+  audit metadata explicitly says `affinity-v2-prewatch-proxy` and does not
+  pretend that the provisional estimate is the canonical post-import score.
+- The frontend reads the live HA queue for the latest tracked score and
+  exposes the source/uncertainty. No direct Supabase secrets or polling in HA.
+
+Acceptance before release: `python tools/validate_v2.py`, the existing
+catalog/bundle/slot checks, Python compilation, JavaScript syntax check, and a
+live HA test of tracked / new / no-tags / + Later. This branch does **not**
+change the HACS release marker or auto-deploy to HA.
