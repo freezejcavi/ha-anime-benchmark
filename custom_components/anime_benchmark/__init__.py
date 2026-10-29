@@ -29,7 +29,7 @@ from .const import (
 )
 from .frontend import async_ensure_lovelace_resource
 from .github_writer import GitHubTransactionWriter
-from .model import ModelBundle
+from .v2_model import AffinityV2Catalog
 from .runtime import BenchmarkRuntime
 
 SERVICE_SEARCH = "search"
@@ -85,8 +85,40 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     component_dir = Path(__file__).parent
-    bundle = await hass.async_add_executor_job(ModelBundle.load, component_dir / "model_bundle.json")
+    v2 = await hass.async_add_executor_job(
+        AffinityV2Catalog.load, component_dir / "affinity_v2_snapshot.json"
+    )
     catalog = await hass.async_add_executor_job(CatalogIndex.load, component_dir / "catalog_index.json")
+    known_ids = {item.get("franchise_id") for item in catalog.items}
+    catalog.items.extend(
+        {
+            "franchise_id": item["id"],
+            "canonical_title": item["title"],
+            "aliases": [],
+        }
+        for item in v2.scores.values()
+        if item["id"] not in known_ids
+    )
+
+    def live_score_for(franchise_id: str) -> float | None:
+        state = hass.states.get("sensor.anime_tracker_home_feed")
+        if state is None:
+            return None
+        for attr in ("active_items", "later_items", "waiting_dub_items", "waiting_release_items"):
+            items = state.attributes.get(attr) or []
+            if not isinstance(items, list):
+                continue
+            for item in items:
+                if item.get("franchise_id") != franchise_id:
+                    continue
+                score = item.get("affinity_v2")
+                if score is not None:
+                    try:
+                        return float(score)
+                    except (TypeError, ValueError):
+                        return None
+        return None
+
     session = async_get_clientsession(hass)
     options = entry.options
     writer = GitHubTransactionWriter(
@@ -96,7 +128,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         options.get(CONF_TRACKER_BRANCH, DEFAULT_TRACKER_BRANCH),
         options.get(CONF_PROFILE_ID, DEFAULT_PROFILE_ID),
     )
-    runtime = BenchmarkRuntime(AniListClient(session), bundle, catalog, writer)
+    runtime = BenchmarkRuntime(
+        AniListClient(session), v2, catalog, writer, live_score_getter=live_score_for
+    )
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = runtime
 
     await hass.http.async_register_static_paths(
