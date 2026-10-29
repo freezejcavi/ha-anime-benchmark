@@ -1,4 +1,4 @@
-const ANIME_BENCHMARK_UI_VERSION = "0.4.1";
+const ANIME_BENCHMARK_UI_VERSION = "0.5.0";
 
 class AnimeBenchmarkCard extends HTMLElement {
   setConfig(config) {
@@ -74,6 +74,8 @@ class AnimeBenchmarkCard extends HTMLElement {
               canonical_title: item?.franchise_title || value,
               matched_title: value,
               match_type: "live_home_feed",
+              franchise_id: item?.franchise_id,
+              affinity_v2: item?.affinity_v2,
             };
           }
         }
@@ -180,7 +182,9 @@ class AnimeBenchmarkCard extends HTMLElement {
           overflow:hidden;
           overflow-wrap:anywhere
         }
-        .rating{font-size:28px;font-weight:800;margin:3px 0}
+.rating{font-size:28px;font-weight:800;margin:3px 0}
+        .v2-note{font-size:12px;line-height:1.4;color:var(--secondary-text-color);margin:5px 0}
+        .rating.provisional{color:var(--warning-color,#ffb74d)}
         .meta,.genres{color:var(--secondary-text-color);font-size:13px;margin:3px 0}
         .genres{
           display:-webkit-box;
@@ -422,15 +426,36 @@ class AnimeBenchmarkCard extends HTMLElement {
       this._output.innerHTML = `<div class="error">${this.esc(a.error)}</div>`;
       return;
     }
-    const rating =
-      ratingState?.state && !["unknown", "unavailable"].includes(ratingState.state)
-        ? ratingState.state
-        : null;
-    if (!rating || (a.candidates || []).length) {
+    if (!a.title || (a.candidates || []).length) {
       this._output.innerHTML = "";
       return;
     }
-
+    // Live HA feed supersedes bundled PROD snapshot, even for a title just
+    // imported through "+ Later". No additional network requests.
+    const liveMatch = this.liveTrackerMatch(a.titles || [a.title]);
+    const rawLiveScore = liveMatch?.affinity_v2;
+    const liveScore = rawLiveScore !== undefined && rawLiveScore !== null
+      ? Number(rawLiveScore) : null;
+    const hasLiveScore = Number.isFinite(liveScore);
+    const rawSnapshotScore = ratingState?.state &&
+      !["unknown", "unavailable"].includes(ratingState.state)
+      ? Number(ratingState.state) : null;
+    const score = hasLiveScore ? liveScore : rawSnapshotScore;
+    const hasScore = score !== null && Number.isFinite(score);
+    const isProxy = !hasLiveScore && a.score_status === "provisional";
+    const isCanonical = hasLiveScore || a.score_status === "tracked_v2";
+    const ratingText = hasScore ? score.toLocaleString("cs-CZ", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) : "—";
+    const range = isProxy && a.range_min != null && a.range_max != null
+      ? `Možný rozsah: ${Number(a.range_min).toFixed(2)}–${Number(a.range_max).toFixed(2)} bodů (Story Arc 0–4)`
+      : "";
+    const ratingLabel = isCanonical ? "Affinity V2" :
+      isProxy ? "V2 předběžný odhad" : "V2 — zatím nehodnoceno";
+    const ratingNote = hasLiveScore
+      ? "Kanonické V2 skóre ze živého HA feedu."
+      : (a.rating_note || "");
     const anilistUrl = this.safeAniListUrl(a.anilist_url);
     const link = anilistUrl
       ? `<a href="${this.esc(anilistUrl)}" target="_blank" rel="noopener noreferrer">AniList ↗</a>`
@@ -462,9 +487,11 @@ class AnimeBenchmarkCard extends HTMLElement {
         <div class="body">
           <div class="found" title="${this.esc(a.title || "")}">${this.esc(a.title || "")}</div>
           ${catalog}
-          <div class="rating">★ ${this.esc(rating)}</div>
-          <div class="meta">${this.esc(yearFormat)}</div>
-          <div class="meta">Confidence: ${this.esc(a.confidence || "—")} · ${this.esc(a.model_version || "")}</div>
+          <div class="meta">${this.esc(ratingLabel)}</div>
+          <div class="rating${isProxy ? " provisional" : ""}">${isProxy ? "≈ " : "★ "}${this.esc(ratingText)}</div>
+          ${range ? `<div class="v2-note">${this.esc(range)}</div>` : ""}
+          ${ratingNote ? `<div class="v2-note">${this.esc(ratingNote)}</div>` : ""}
+          <div class="meta">${this.esc(yearFormat)} · ${this.esc(a.model_version || "affinity-v2")}</div>
           <div class="genres">${this.esc((a.genres || []).join(" · "))}</div>
           ${link}
           ${laterAction}

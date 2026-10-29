@@ -17,6 +17,8 @@ jobs:
 
       - name: Validate tracker catalog
         run: python tools/validate_catalog.py
+      - name: Validate V2 model and snapshot
+        run: python tools/validate_v2.py
       - name: Compile Python sources
         run: python -m compileall -q custom_components tools
 
