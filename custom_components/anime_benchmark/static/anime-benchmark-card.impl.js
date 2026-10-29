@@ -1,4 +1,4 @@
-const ANIME_BENCHMARK_UI_VERSION = "0.5.0";
+const ANIME_BENCHMARK_UI_VERSION = "0.5.1";
 
 class AnimeBenchmarkCard extends HTMLElement {
   setConfig(config) {
@@ -370,7 +370,8 @@ class AnimeBenchmarkCard extends HTMLElement {
     const live = this.liveTrackerMatch(item.titles || [item.title]);
     const liveValue = live?.affinity_v2;
     const hasLiveScore = liveValue != null && Number.isFinite(Number(liveValue));
-    const rawScore = live ? (hasLiveScore ? Number(liveValue) : null) : item.rating;
+    const rawScore = hasLiveScore ? Number(liveValue)
+      : (live && item.score_status === "provisional" ? null : item.rating);
     const score = rawScore != null && Number.isFinite(Number(rawScore))
       ? Number(rawScore) : null;
     const proxy = !live && item.score_status === "provisional";
