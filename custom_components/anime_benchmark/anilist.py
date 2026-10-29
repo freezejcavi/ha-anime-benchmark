@@ -112,7 +112,7 @@ class AniListClient:
         media = ((data.get("Page") or {}).get("media") or [])
         results = [AniListResult(item) for item in media]
         results.sort(key=lambda item: item.match_score(title), reverse=True)
-        return results
+        return results[:15]
 
     async def get_by_id(self, anilist_id: int) -> AniListResult:
         data = await self._post(ID_QUERY, {"id": int(anilist_id)})
