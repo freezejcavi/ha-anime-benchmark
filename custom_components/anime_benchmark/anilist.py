@@ -28,7 +28,7 @@ MEDIA_FIELDS = """
 
 SEARCH_QUERY = f"""
 query ($search: String!) {{
-  Page(page: 1, perPage: 5) {{
+  Page(page: 1, perPage: 25) {{
     media(search: $search, type: ANIME, isAdult: false) {{
       {MEDIA_FIELDS}
     }}
@@ -49,15 +49,16 @@ def normalize_title(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
 
 
-def candidate_score(query: str, media: dict) -> tuple[float, float]:
+def candidate_score(query: str, media: dict) -> tuple[float, float, float]:
     q = normalize_title(query)
     titles = media.get("title") or {}
     variants = [normalize_title(v) for v in titles.values() if v]
     if not variants:
-        return (0.0, 0.0)
-    exact = 1.0 if q in variants else 0.0
+        return (0.0, 0.0, 0.0)
+    exact = 1.0 if q and q in variants else 0.0
+    contains = 1.0 if q and any(q in value for value in variants) else 0.0
     fuzzy = max(SequenceMatcher(None, q, value).ratio() for value in variants)
-    return (exact, fuzzy)
+    return (exact, contains, fuzzy)
 
 
 @dataclass(slots=True)
@@ -69,11 +70,11 @@ class AniListResult:
         title = self.raw.get("title") or {}
         return title.get("english") or title.get("romaji") or title.get("native") or "Unknown"
 
-    def match_score(self, query: str) -> tuple[float, float]:
+    def match_score(self, query: str) -> tuple[float, float, float]:
         return candidate_score(query, self.raw)
 
     def summary(self, query: str) -> dict[str, Any]:
-        exact, fuzzy = self.match_score(query)
+        exact, _contains, fuzzy = self.match_score(query)
         titles = self.raw.get("title") or {}
         return {
             "id": self.raw.get("id"),
