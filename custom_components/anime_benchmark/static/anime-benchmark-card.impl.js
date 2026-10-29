@@ -204,7 +204,13 @@ class AnimeBenchmarkCard extends HTMLElement {
         .candidate img{width:40px;height:56px;object-fit:cover;border-radius:6px;flex:0 0 auto}
         .candidate .info{min-width:0;flex:1}
         .candidate .sub{font-size:12px;color:var(--secondary-text-color);margin-top:2px}
-        .candidate .pick{height:32px;padding:0 11px;flex:0 0 auto}
+        .candidate .action{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto}
+        .candidate .candidate-score{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+        .candidate .candidate-score.provisional{color:var(--warning-color,#ffb74d)}
+        .candidate .candidate-score.missing{color:var(--secondary-text-color)}
+        .candidate .score-type{font-size:11px;color:var(--secondary-text-color)}
+        .candidate .score-value{display:flex;align-items:baseline;gap:5px}
+        .candidate .pick{height:30px;padding:0 11px;flex:0 0 auto}
         .later-action{
           display:inline-flex;align-items:center;justify-content:center;
           margin-top:8px;padding:7px 11px;border:0;border-radius:9px;
@@ -358,6 +364,33 @@ class AnimeBenchmarkCard extends HTMLElement {
     this._activity.innerHTML = (log || []).map((line) => `<div>↳ ${this.esc(line)}</div>`).join("");
   }
 
+  candidatePreview(item) {
+    // The live HA feed is authoritative for exact queue-title matches.
+    // A tracked title without a live score must not inherit a NEW proxy.
+    const live = this.liveTrackerMatch(item.titles || [item.title]);
+    const liveValue = live?.affinity_v2;
+    const hasLiveScore = liveValue != null && Number.isFinite(Number(liveValue));
+    const rawScore = live ? (hasLiveScore ? Number(liveValue) : null) : item.rating;
+    const score = rawScore != null && Number.isFinite(Number(rawScore))
+      ? Number(rawScore) : null;
+    const proxy = !live && item.score_status === "provisional";
+    const type = score == null ? "bez skóre" : proxy ? "odhad" : "V2";
+    const formatted = score == null ? "—" : score.toLocaleString("cs-CZ", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    const range = proxy && item.range_min != null && item.range_max != null
+      ? ` (Story Arc: ${Number(item.range_min).toFixed(2)}–${Number(item.range_max).toFixed(2)})`
+      : "";
+    return {
+      score,
+      proxy,
+      formatted,
+      type,
+      tooltip: `${proxy ? "Předběžný V2 odhad" : "Affinity V2"}: ${formatted}${range}`,
+    };
+  }
+
   _renderCandidates(candidates, busy) {
     if (!this._candidates) return;
 
@@ -378,6 +411,12 @@ class AnimeBenchmarkCard extends HTMLElement {
           effectiveCatalog?.tracked,
           effectiveCatalog?.canonical_title,
           effectiveCatalog?.match_type,
+          item.rating,
+          item.range_min,
+          item.range_max,
+          item.score_status,
+          this.candidatePreview(item).formatted,
+          this.candidatePreview(item).type,
         ];
       })
     );
@@ -407,6 +446,8 @@ class AnimeBenchmarkCard extends HTMLElement {
         item.titles || [item.title]
       );
       const catalog = this.catalogBadge(effectiveCatalog);
+      const preview = this.candidatePreview(item);
+      const scoreClass = preview.score == null ? "missing" : preview.proxy ? "provisional" : "canonical";
       return `<div class="candidate">
         ${cover}
         <div class="info">
@@ -415,7 +456,13 @@ class AnimeBenchmarkCard extends HTMLElement {
           ${catalog}
           ${url ? `<a href="${this.esc(url)}" target="_blank" rel="noopener noreferrer">AniList ↗</a>` : ""}
         </div>
-        <button class="pick" data-id="${this.esc(item.id)}" ${busy ? "disabled" : ""}>Vybrat</button>
+        <div class="action">
+          <div class="score-value" title="${this.esc(preview.tooltip)}">
+            <span class="candidate-score ${scoreClass}">${this.esc(preview.proxy ? "≈ " : "")}${this.esc(preview.formatted)}</span>
+            <span class="score-type">${this.esc(preview.type)}</span>
+          </div>
+          <button class="pick" data-id="${this.esc(item.id)}" ${busy ? "disabled" : ""}>Vybrat</button>
+        </div>
       </div>`;
     }).join("")}</div>`;
   }
