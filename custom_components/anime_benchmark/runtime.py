@@ -102,6 +102,7 @@ class BenchmarkRuntime:
 
         self.result = {
             "title": found.title,
+            "titles": [v for v in (found.raw.get("title") or {}).values() if v],
             **result_score,
             "anilist_id": found.raw.get("id"),
             "anilist_url": found.raw.get("siteUrl"),
