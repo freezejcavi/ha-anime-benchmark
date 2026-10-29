@@ -56,10 +56,7 @@ class BenchmarkRuntime:
     def _finish_timing(self, started: float) -> None:
         self.elapsed_ms = round((monotonic() - started) * 1000)
 
-    async def _score_result(self, found: AniListResult, started: float) -> None:
-        self.candidates = []
-        self._set_status("scoring", f"Vyhodnocuji Affinity V2: {found.title}")
-        catalog = self.catalog.match_media(found.raw)
+    def _score_for_media(self, found: AniListResult, catalog: dict) -> dict:
         exact_tracked = catalog.get("tracked") and catalog.get("match_type") == "exact"
         franchise_id = catalog.get("franchise_id") if exact_tracked else None
 
@@ -99,6 +96,14 @@ class BenchmarkRuntime:
             }
         else:
             result_score = self.v2.estimate_new(found.raw)
+
+        return result_score
+
+    async def _score_result(self, found: AniListResult, started: float) -> None:
+        self.candidates = []
+        self._set_status("scoring", f"Vyhodnocuji Affinity V2: {found.title}")
+        catalog = self.catalog.match_media(found.raw)
+        result_score = self._score_for_media(found, catalog)
 
         self.result = {
             "title": found.title,
@@ -159,7 +164,13 @@ class BenchmarkRuntime:
             self.candidates = []
             for item in found:
                 summary = item.summary(query)
-                summary["catalog"] = self.catalog.match_titles(summary.get("titles") or [])
+                catalog = self.catalog.match_media(item.raw)
+                score = self._score_for_media(item, catalog)
+                summary["catalog"] = catalog
+                summary.update({
+                    key: score.get(key)
+                    for key in ("rating", "range_min", "range_max", "score_status", "score_source")
+                })
                 self.candidates.append(summary)
             self._finish_timing(started)
             count = len(self.candidates)

@@ -5,7 +5,7 @@ Samostatná Home Assistant custom integration pro rychlé ohodnocení anime podl
 ## Cíl V1
 
 1. Do dashboard karty zadat celý nebo částečný název anime.
-2. Vyhledat až 5 kandidátů přes AniList GraphQL API.
+2. Načíst až 25 výsledků AniList GraphQL API, seřadit podle shody textu kdekoli v názvu a zobrazit 15 nejbližších kandidátů s V2 skóre / označeným odhadem.
 3. Přesnou shodu rovnou ohodnotit; u nejasného názvu nechat uživatele vybrat správný titul.
 4. Převést AniList genres/tags do lokálního taxonomy vstupu.
 5. Spočítat benchmark rating lokálně podle verzovaného `model_bundle.json`.
@@ -65,12 +65,14 @@ V1 scaffold obsahuje HA backend, vlastní dashboard card, AniList resolver, lok�
 ## Search UX od 0.2.0
 
 - Přesný název: titul se rovnou vyhodnotí.
-- Částečný/nejasný název: karta zobrazí až 5 AniList kandidátů bez ratingu.
+- Částečný/nejasný název: karta zobrazí až 15 AniList kandidátů, přednostně ty s textem kdekoli v anglickém/romaji názvu. U každého ukazuje kanonické V2 skóre, předběžný odhad (≈) nebo — při chybějících datech.
 - Po kliknutí na **Vybrat** se spočítá rating zvoleného titulu.
 - Status bar ukazuje aktuální fázi a dobu zpracování.
 - Rozbalovací **Aktivita** ukazuje poslední kroky operace.
 - Karta volá přímo `anime_benchmark.search`; nepoužívá závod mezi `text.set_value` a `button.press`.
 
+
+Vyhledávání funguje i podle slova uprostřed názvu (např. `Slime` nebo `Dungeon`), pokud AniList titul vrátí. Nejde o úplný lokální index všech titulů: samotný AniList API search negarantuje vyhledání libovolného fragmentu uprostřed slova.
 
 ## Layout
 
